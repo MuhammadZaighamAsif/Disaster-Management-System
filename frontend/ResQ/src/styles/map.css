@@ -1,0 +1,63 @@
+/* Leaflet Map Styles */
+.leaflet-container {
+  z-index: 1;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.leaflet-popup-content {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.leaflet-popup-tip {
+  background-color: white;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Custom marker styles */
+.leaflet-marker-pane {
+  z-index: 600;
+}
+
+/* Ensure map controls are properly styled */
+.leaflet-control-zoom {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.leaflet-control-zoom a {
+  background-color: #f8f8f8;
+  color: #333;
+  font-size: 16px;
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: #fff;
+}
+
+/* Attribution control */
+.leaflet-control-attribution {
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+}
+
+/* Ensure responsive map */
+.leaflet-container.leaflet-touch .leaflet-bar a.leaflet-active {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+/* Fix for map tiles loading */
+.leaflet-tile {
+  filter: none;
+}
+
+.leaflet-tile-pane {
+  z-index: 200;
+}
