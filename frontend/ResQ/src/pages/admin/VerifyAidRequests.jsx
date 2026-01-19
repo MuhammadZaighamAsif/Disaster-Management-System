@@ -90,152 +90,125 @@ const VerifyAidRequests = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 py-8">
-        <div className="container mx-auto px-4 text-center">
-          <div className="flex flex-col items-center justify-center min-h-[60vh]">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mb-4"></div>
-            <p className="text-xl font-semibold text-gray-700">Loading aid requests...</p>
+      <div className="min-h-screen bg-[#EBF4DD]">
+        <div className="bg-[#0F2854] text-white py-12 px-4 mb-12 shadow-lg">
+          <div className="container mx-auto px-4">
+            <h1 className="text-4xl font-bold text-white mb-2">Verify Aid Requests</h1>
+            <p className="text-[#BDE8F5]">Review and approve pending aid requests from victims</p>
           </div>
+        </div>
+        <div className="container mx-auto px-4 text-center">
+          <div className="text-xl text-[#296374] font-semibold">Loading aid requests...</div>
         </div>
       </div>
     );
   }
 
-  const getAidTypeIcon = (type) => {
-    // aidType is uppercase in the API (FOOD, CLOTHES, SHELTER, MEDICAL)
-    switch ((type || '').toUpperCase()) {
-      case 'FOOD':
-        return faUtensils;
-      case 'CLOTHES':
-        return faTshirt;
-      case 'SHELTER':
-        return faHome;
-      case 'MEDICAL':
-        return faMedkit;
-      default:
-        return faBox;
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-50 via-blue-50 to-gray-100 py-8">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-2">Verify Aid Requests</h1>
-          <p className="text-gray-600">Review and approve pending aid requests from victims</p>
+    <div className="min-h-screen bg-[#EBF4DD]">
+      {/* Header Section */}
+      <div className="bg-[#0F2854] text-white py-12 px-4 mb-12 shadow-lg">
+        <div className="container mx-auto px-4">
+          <h1 className="text-4xl font-bold text-white mb-2">Verify Aid Requests</h1>
+          <p className="text-[#BDE8F5]">Review and approve pending aid requests from victims</p>
         </div>
+      </div>
 
+      <div className="container mx-auto px-4 max-w-7xl mb-12">
         {error && (
-          <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-6 py-4 rounded-r-lg mb-6 shadow-md">
-            <div className="flex items-center">
-              <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd"/>
-              </svg>
-              <span className="font-medium">{error}</span>
-            </div>
+          <div className="bg-red-100 border-2 border-red-500 text-red-700 px-6 py-4 rounded-xl mb-8 shadow-md font-semibold">
+            ⚠️ {error}
           </div>
         )}
 
         {pendingRequests.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-xl p-12 text-center border border-gray-100">
+          <div className="bg-white rounded-2xl shadow-xl p-12 text-center border-l-4 border-[#90AB8B]">
             <div className="max-w-md mx-auto">
-              <div className="w-24 h-24 bg-linear-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+              <div className="w-24 h-24 bg-[#EBF4DD] rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
+                ✅
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-2">All Caught Up!</h3>
-              <p className="text-gray-600 text-lg">No pending aid requests to verify at the moment.</p>
+              <h3 className="text-2xl font-bold text-[#0F2854] mb-2">All Caught Up!</h3>
+              <p className="text-[#296374] text-lg">No pending aid requests to verify at the moment.</p>
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6">
+          <div className="grid grid-cols-1 gap-8">
             {pendingRequests.map((request) => (
-              <div key={request._id} className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden">
-                <div className="flex items-start gap-6 p-6">
-                  <div className="shrink-0">
-                    <div className="w-16 h-16 bg-linear-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
-                      <FontAwesomeIcon icon={getAidTypeIcon(request.aidType)} className="text-2xl text-white" />
-                    </div>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="text-2xl font-bold">{request.victim?.name || 'Victim'}</h3>
-                        <span className={`${request.exceedsLimit ? 'bg-orange-100 text-orange-800' : 'bg-yellow-100 text-yellow-800'} px-3 py-1 rounded-full text-sm font-semibold mt-2 inline-block`}>
-                          {request.exceedsLimit ? 'Exceeds Limit - Pending' : 'Pending'}
-                        </span>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-gray-600">
-                          <strong>Request ID:</strong> #{request._id}
-                        </p>
-                        <p className="text-gray-600">
-                          <strong>Date:</strong> {new Date(request.createdAt).toLocaleDateString()}
-                        </p>
+              <div key={request._id} className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition overflow-hidden">
+                <div className="border-l-4 border-[#4988C4] p-8">
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="flex-1">
+                      <div className="flex gap-4 items-start">
+                        <div className="text-5xl">
+                          {request.aidType?.toUpperCase() === 'FOOD' ? '' :
+                           request.aidType?.toUpperCase() === 'CLOTHES' ? '👕' :
+                           request.aidType?.toUpperCase() === 'SHELTER' ? '' :
+                           request.aidType?.toUpperCase() === 'MEDICAL' ? '' : ''}
+                        </div>
+                        <div>
+                          <h3 className="text-3xl font-bold text-[#0F2854]">{request.victim?.name || 'Victim'}</h3>
+                          <span className={`${request.exceedsLimit ? 'bg-orange-200 text-orange-800' : 'bg-yellow-200 text-yellow-800'} px-4 py-2 rounded-full text-sm font-bold mt-2 inline-block`}>
+                            {request.exceedsLimit ? 'Exceeds Limit' : 'Pending'}
+                          </span>
+                        </div>
                       </div>
                     </div>
+                    <div className="text-right">
+                      <p className="text-[#5A7863] text-sm"># {request._id.substring(0, 8)}</p>
+                      <p className="text-[#5A7863] text-sm">{new Date(request.createdAt).toLocaleDateString()}</p>
+                    </div>
                   </div>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <p className="text-gray-600">
-                      <strong>Aid Type:</strong> {request.aidType.toUpperCase()}
-                    </p>
-                    <p className="text-gray-600">
-                      <strong>Amount/Quantity:</strong> {request.amount}
-                    </p>
-                    <p className="text-gray-600">
-                      <strong>System Limit:</strong> {request.systemLimit}
-                    </p>
-                    <p className="text-gray-600">
-                      <strong>Exceeds by:</strong>{' '}
-                      <span className="text-red-600 font-bold">
-                        {request.systemLimit ? Math.max(0, request.amount - request.systemLimit) : '—'}
-                      </span>
-                    </p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div className="bg-[#EBF4DD] rounded-lg p-4 border border-[#90AB8B]">
+                      <p className="text-[#5A7863] text-sm font-semibold uppercase mb-1">Request Details</p>
+                      <p className="text-[#0F2854] font-bold mb-2">{request.aidType?.toUpperCase()} Aid</p>
+                      <p className="text-[#296374] text-sm">Amount: <span className="font-bold">{request.amount}</span></p>
+                      <p className="text-[#296374] text-sm">System Limit: {request.systemLimit || 'N/A'}</p>
+                      {request.exceedsLimit && (
+                        <p className="text-red-600 font-bold text-sm mt-1">Exceeds by: {Math.max(0, request.amount - request.systemLimit)}</p>
+                      )}
+                    </div>
+
+                    <div className="bg-[#EBF4DD] rounded-lg p-4 border border-[#4988C4]">
+                      <p className="text-[#5A7863] text-sm font-semibold uppercase mb-1">Victim Info</p>
+                      <p className="text-[#0F2854] font-bold mb-2">{request.victim?.name || 'Unknown'}</p>
+                      <p className="text-[#296374] text-sm">Email: {request.victim?.email || '—'}</p>
+                      <p className="text-[#296374] text-sm">Phone: {request.victim?.phone || request.contactPhone || '—'}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-gray-600">
-                      <strong>Victim Email:</strong> {request.victim?.email || '—'}
-                    </p>
-                    <p className="text-gray-600">
-                      <strong>Phone:</strong> {request.victim?.phone || request.contactPhone || '—'}
-                    </p>
-                    <p className="text-gray-600">
-                      <strong>Family Size:</strong> {request.familySize}
-                    </p>
-                    {request.disaster && (
-                      <p className="text-gray-600">
-                        <strong>Disaster:</strong> {request.disaster?.name} ({request.disaster?.type})
-                      </p>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div className="bg-[#F5F5F5] rounded-lg p-4 border-l-2 border-[#629FAD]">
+                      <p className="text-[#5A7863] text-sm font-semibold uppercase mb-2">👨‍👩‍👧‍👦 Family & Disaster</p>
+                      <p className="text-[#0F2854] font-bold">Family Size: {request.familySize}</p>
+                      {request.disaster && (
+                        <p className="text-[#296374] text-sm">Disaster: {request.disaster?.name}</p>
+                      )}
+                    </div>
+
+                    {request.description && (
+                      <div className="bg-[#F5F5F5] rounded-lg p-4 border-l-2 border-[#5A7863]">
+                        <p className="text-[#5A7863] text-sm font-semibold uppercase mb-2">Description</p>
+                        <p className="text-[#0F2854]">{request.description.substring(0, 100)}...</p>
+                      </div>
                     )}
                   </div>
-                </div>
 
-                {request.description && (
-                  <div className="mb-4">
-                    <p className="text-gray-700">
-                      <strong>Description:</strong>
-                    </p>
-                    <p className="text-gray-600 mt-2">{request.description}</p>
+                  <div className="flex gap-4 pt-4 border-t border-[#EDEDCE]">
+                    <button
+                      onClick={() => handleApprove(request._id)}
+                      className="flex-1 bg-[#90AB8B] hover:bg-[#5A7863] text-white font-bold py-3 px-6 rounded-lg transition transform hover:scale-105 shadow-md"
+                    >
+                      ✅ Approve Request
+                    </button>
+                    <button
+                      onClick={() => handleReject(request._id)}
+                      className="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition transform hover:scale-105 shadow-md"
+                    >
+                      Reject
+                    </button>
                   </div>
-                )}
-
-                <div className="flex gap-4 mt-6">
-                  <button
-                    onClick={() => handleApprove(request._id)}
-                    className="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition"
-                  >
-                    ✓ Approve
-                  </button>
-                  <button
-                    onClick={() => handleReject(request._id)}
-                    className="flex-1 bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition"
-                  >
-                    ✗ Reject
-                  </button>
                 </div>
               </div>
             ))}

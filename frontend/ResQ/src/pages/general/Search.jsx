@@ -94,81 +94,87 @@ const Search = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8 text-center">Search Disasters</h1>
-        
+    <div className="min-h-screen bg-[#EBF4DD]">
+      {/* Header Section */}
+      <div className="bg-[#0F2854] text-white py-12 px-4 mb-12 shadow-lg">
+        <div className="container mx-auto px-4">
+          <h1 className="text-4xl font-bold mb-2 text-white">Search Disasters</h1>
+          <p className="text-[#BDE8F5]">Find and view active disaster incidents</p>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 mb-12">
         <SearchBar onSearch={handleSearch} showAdvanced={true} />
 
         {isSearching && (
-          <div className="mt-4 text-center">
+          <div className="mt-6 text-center">
             <button
               onClick={handleClearSearch}
-              className="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition"
+              className="px-6 py-3 bg-[#90AB8B] hover:bg-[#5A7863] text-white rounded-lg font-bold transition transform hover:scale-105 shadow-md"
             >
-              Clear Search
+              ✕ Clear Search
             </button>
           </div>
         )}
 
         {loading && (
-          <div className="text-center mt-8">
-            <div className="text-xl">Loading...</div>
+          <div className="text-center mt-12">
+            <div className="text-xl text-[#296374] font-semibold">Loading disasters...</div>
           </div>
         )}
 
         {!loading && results.length > 0 && (
           <>
-            <div className="mt-8 grid grid-cols-1 gap-6">
+            <div className="mt-12 grid grid-cols-1 gap-8">
               {paginatedResults.map((disaster) => (
-                <div key={disaster._id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-bold mb-2">{disaster.name}</h3>
-                      <p className="text-gray-600 mb-2">
-                        <strong>Type:</strong> {disaster.type}
-                      </p>
+                <div key={disaster._id} className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition overflow-hidden">
+                  <div className="border-l-4 border-[#4988C4] p-8">
+                    <div className="flex justify-between items-start mb-6">
+                      <div className="flex-1">
+                        <h3 className="text-3xl font-bold text-[#0F2854] mb-2">{disaster.name}</h3>
+                        <p className="text-[#5A7863] font-semibold">
+                          Type: <span className="text-[#296374]">{disaster.type}</span>
+                        </p>
+                      </div>
+                      <span className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap ml-4 ${
+                        disaster.severity === 'CRITICAL' ? 'bg-red-600 text-white' :
+                        disaster.severity === 'HIGH' ? 'bg-orange-500 text-white' :
+                        disaster.severity === 'MEDIUM' ? 'bg-yellow-500 text-white' :
+                        'bg-green-500 text-white'
+                      }`}>
+                        {disaster.severity}
+                      </span>
                     </div>
-                    <span className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap ml-4 ${
-                      disaster.severity === 'CRITICAL' ? 'bg-red-100 text-red-800' :
-                      disaster.severity === 'HIGH' ? 'bg-orange-100 text-orange-800' :
-                      disaster.severity === 'MEDIUM' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-green-100 text-green-800'
-                    }`}>
-                      {disaster.severity}
-                    </span>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                      <div className="bg-[#EBF4DD] rounded-lg p-4 border border-[#90AB8B]">
+                        <p className="text-[#5A7863] text-sm font-semibold uppercase mb-1">Location</p>
+                        <p className="text-[#0F2854] font-bold mb-1">{disaster.location}</p>
+                        <p className="text-[#296374] text-sm">City: {disaster.city}</p>
+                      </div>
+                      <div className="bg-[#EBF4DD] rounded-lg p-4 border border-[#4988C4]">
+                        <p className="text-[#5A7863] text-sm font-semibold uppercase mb-1">Description</p>
+                        <p className="text-[#0F2854]">{disaster.description.substring(0, 80)}...</p>
+                      </div>
+                    </div>
+
+                    <button 
+                      onClick={() => setSelectedDisaster(disaster)}
+                      className="w-full bg-[#4988C4] hover:bg-[#1C4D8D] text-white font-bold py-3 rounded-lg transition transform hover:scale-105 shadow-md">
+                      View Full Details
+                    </button>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <p className="text-gray-600">
-                        <strong>Location:</strong> {disaster.location}
-                      </p>
-                      <p className="text-gray-600">
-                        <strong>City:</strong> {disaster.city}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-gray-600">
-                        <strong>Description:</strong> {disaster.description}
-                      </p>
-                    </div>
-                  </div>
-                  <button 
-                    onClick={() => setSelectedDisaster(disaster)}
-                    className="bg-red-500 text-black px-4 py-2 rounded-lg hover:bg-sage transition w-full">
-                    View Details
-                  </button>
                 </div>
               ))}
             </div>
 
             {/* Pagination Controls */}
             {totalPages > 1 && (
-              <div className="flex justify-center items-center gap-6 mt-8">
+              <div className="flex justify-center items-center gap-6 mt-12">
                 <button
                   onClick={handlePrevPage}
                   disabled={currentPage === 1}
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 transition"
+                  className="flex items-center gap-2 px-4 py-3 bg-[#4988C4] text-white rounded-lg hover:bg-[#1C4D8D] disabled:bg-gray-400 transition font-bold"
                 >
                   <FontAwesomeIcon icon={faChevronLeft} />
                   Previous
@@ -179,10 +185,10 @@ const Search = () => {
                     <button
                       key={page}
                       onClick={() => setCurrentPage(page)}
-                      className={`px-3 py-2 rounded-lg font-semibold transition ${
+                      className={`px-4 py-2 rounded-lg font-bold transition ${
                         currentPage === page
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                          ? 'bg-[#4988C4] text-white shadow-md'
+                          : 'bg-[#EDEDCE] text-[#0F2854] hover:bg-[#90AB8B]'
                       }`}
                     >
                       {page}
@@ -193,7 +199,7 @@ const Search = () => {
                 <button
                   onClick={handleNextPage}
                   disabled={currentPage === totalPages}
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 transition"
+                  className="flex items-center gap-2 px-4 py-3 bg-[#4988C4] text-white rounded-lg hover:bg-[#1C4D8D] disabled:bg-gray-400 transition font-bold"
                 >
                   Next
                   <FontAwesomeIcon icon={faChevronRight} />
@@ -201,91 +207,103 @@ const Search = () => {
               </div>
             )}
 
-            <p className="text-center text-gray-600 mt-4">
-              Page {currentPage} of {totalPages} (Showing {paginatedResults.length} of {results.length} disasters)
+            <p className="text-center text-[#5A7863] mt-8 font-semibold">
+              📄 Page {currentPage} of {totalPages} (Showing {paginatedResults.length} of {results.length} disasters)
             </p>
           </>
         )}
 
         {!loading && results.length === 0 && (
-          <div className="text-center mt-8 text-gray-500">
-            {isSearching ? 'No disasters found. Try different search terms.' : 'No active disasters at the moment.'}
+          <div className="text-center mt-12">
+            <div className="bg-white rounded-2xl shadow-xl p-12 border-l-4 border-[#90AB8B]">
+              <p className="text-2xl text-[#296374] font-semibold">
+                {isSearching ? 'No disasters found' : 'No active disasters'}
+              </p>
+              <p className="text-[#5A7863] mt-2">
+                {isSearching ? 'Try different search terms.' : 'There are no active disasters at the moment.'}
+              </p>
+            </div>
           </div>
         )}
 
         {/* Details Modal */}
         {selectedDisaster && (
-          <div className="fixed inset-0 bg-blue-500 bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-160 overflow-y-auto">
-              <div className="sticky top-0 flex justify-between items-center p-6 border-b border-gray-200 bg-white">
-                <h2 className="text-2xl font-bold text-forest">{selectedDisaster.name}</h2>
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+              {/* Modal Header */}
+              <div className="sticky top-0 flex justify-between items-center p-8 bg-[#0F2854] text-white border-b-4 border-[#4988C4]">
+                <h2 className="text-3xl font-bold">{selectedDisaster.name}</h2>
                 <button
                   onClick={() => setSelectedDisaster(null)}
-                  className="text-gray-500 hover:text-gray-700 text-2xl"
+                  className="text-white hover:text-[#BDE8F5] text-3xl font-bold transition"
                 >
-                  <FontAwesomeIcon icon={faTimes} />
+                  ✕
                 </button>
               </div>
               
-              <div className="p-6 space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-sm font-semibold text-gray-600">Type</p>
-                    <p className="text-lg">{selectedDisaster.type}</p>
+              {/* Modal Content */}
+              <div className="p-8 space-y-6">
+                {/* Severity & Type */}
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="bg-[#EBF4DD] rounded-lg p-4 border border-[#90AB8B]">
+                    <p className="text-[#5A7863] text-sm font-bold uppercase mb-1">Type</p>
+                    <p className="text-xl font-bold text-[#0F2854]">{selectedDisaster.type}</p>
                   </div>
-                  <div>
-                    <p className="text-sm font-semibold text-gray-600">Severity</p>
-                    <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
-                      selectedDisaster.severity === 'CRITICAL' ? 'bg-red-100 text-red-800' :
-                      selectedDisaster.severity === 'HIGH' ? 'bg-orange-100 text-orange-800' :
-                      selectedDisaster.severity === 'MEDIUM' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-green-100 text-green-800'
+                  <div className="bg-[#EBF4DD] rounded-lg p-4 border border-[#4988C4]">
+                    <p className="text-[#5A7863] text-sm font-bold uppercase mb-1">Severity</p>
+                    <span className={`inline-block px-3 py-1 rounded-full text-sm font-bold ${
+                      selectedDisaster.severity === 'CRITICAL' ? 'bg-red-600 text-white' :
+                      selectedDisaster.severity === 'HIGH' ? 'bg-orange-500 text-white' :
+                      selectedDisaster.severity === 'MEDIUM' ? 'bg-yellow-500 text-white' :
+                      'bg-green-500 text-white'
                     }`}>
                       {selectedDisaster.severity}
                     </span>
                   </div>
                 </div>
 
-                <div>
-                  <p className="text-sm font-semibold text-gray-600 mb-2">Description</p>
-                  <p className="text-gray-700">{selectedDisaster.description}</p>
+                {/* Description */}
+                <div className="bg-[#F5F5F5] rounded-lg p-4 border-l-4 border-[#90AB8B]">
+                  <p className="text-[#5A7863] text-sm font-bold uppercase mb-2">Description</p>
+                  <p className="text-[#3B4953] leading-relaxed">{selectedDisaster.description}</p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                {/* Location Info */}
+                <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <p className="text-sm font-semibold text-gray-600">Location</p>
-                    <p className="text-gray-700">{selectedDisaster.location}</p>
+                    <p className="text-[#5A7863] text-sm font-bold uppercase mb-1">Location</p>
+                    <p className="text-[#0F2854] font-bold">{selectedDisaster.location}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-gray-600">City</p>
-                    <p className="text-gray-700">{selectedDisaster.city}</p>
+                    <p className="text-[#5A7863] text-sm font-bold uppercase mb-1">City</p>
+                    <p className="text-[#0F2854] font-bold">{selectedDisaster.city}</p>
                   </div>
                 </div>
 
                 {selectedDisaster.areaCode && (
-                  <div>
-                    <p className="text-sm font-semibold text-gray-600">Area Code</p>
-                    <p className="text-gray-700">{selectedDisaster.areaCode}</p>
+                  <div className="bg-[#EBF4DD] rounded-lg p-4 border border-[#629FAD]">
+                    <p className="text-[#5A7863] text-sm font-bold uppercase mb-1">🗺️ Area Code</p>
+                    <p className="text-[#0F2854] font-bold">{selectedDisaster.areaCode}</p>
                   </div>
                 )}
 
                 {selectedDisaster.coordinates && (
                   <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <p className="text-sm font-semibold text-gray-600">Latitude</p>
-                      <p className="text-gray-700">{selectedDisaster.coordinates.lat}</p>
+                    <div className="bg-[#EBF4DD] rounded-lg p-4 border border-[#90AB8B]">
+                      <p className="text-[#5A7863] text-xs font-bold uppercase mb-1">Latitude</p>
+                      <p className="text-[#0F2854] font-mono">{selectedDisaster.coordinates.lat}</p>
                     </div>
-                    <div>
-                      <p className="text-sm font-semibold text-gray-600">Longitude</p>
-                      <p className="text-gray-700">{selectedDisaster.coordinates.lng}</p>
+                    <div className="bg-[#EBF4DD] rounded-lg p-4 border border-[#90AB8B]">
+                      <p className="text-[#5A7863] text-xs font-bold uppercase mb-1">Longitude</p>
+                      <p className="text-[#0F2854] font-mono">{selectedDisaster.coordinates.lng}</p>
                     </div>
                   </div>
                 )}
 
                 {selectedDisaster.reportedBy && (
-                  <div>
-                    <p className="text-sm font-semibold text-gray-600">Reported By</p>
-                    <p className="text-gray-700">
+                  <div className="bg-[#EBF4DD] rounded-lg p-4 border border-[#5A7863]">
+                    <p className="text-[#5A7863] text-sm font-bold uppercase mb-1">Reported By</p>
+                    <p className="text-[#0F2854]">
                       {typeof selectedDisaster.reportedBy === 'object' 
                         ? selectedDisaster.reportedBy.name 
                         : selectedDisaster.reportedBy}
@@ -294,26 +312,27 @@ const Search = () => {
                 )}
 
                 {selectedDisaster.status && (
-                  <div>
-                    <p className="text-sm font-semibold text-gray-600">Status</p>
-                    <p className="text-gray-700">{selectedDisaster.status}</p>
+                  <div className="bg-[#EBF4DD] rounded-lg p-4 border border-[#4988C4]">
+                    <p className="text-[#5A7863] text-sm font-bold uppercase mb-1">Status</p>
+                    <p className="text-[#0F2854] font-bold">{selectedDisaster.status}</p>
                   </div>
                 )}
 
                 {selectedDisaster.createdAt && (
-                  <div>
-                    <p className="text-sm font-semibold text-gray-600">Reported On</p>
-                    <p className="text-gray-700">{new Date(selectedDisaster.createdAt).toLocaleDateString()}</p>
+                  <div className="bg-[#EBF4DD] rounded-lg p-4 border border-[#629FAD]">
+                    <p className="text-[#5A7863] text-sm font-bold uppercase mb-1">Reported On</p>
+                    <p className="text-[#0F2854]">{new Date(selectedDisaster.createdAt).toLocaleDateString()}</p>
                   </div>
                 )}
               </div>
 
-              <div className="flex gap-3 p-6 border-t border-gray-200 bg-gray-50">
+              {/* Modal Footer */}
+              <div className="flex gap-4 p-8 border-t-4 border-[#4988C4] bg-[#EBF4DD]">
                 <button
                   onClick={() => setSelectedDisaster(null)}
-                  className="flex-1 bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition font-semibold"
+                  className="flex-1 bg-[#90AB8B] hover:bg-[#5A7863] text-white px-6 py-3 rounded-lg transition font-bold shadow-md transform hover:scale-105"
                 >
-                  Close
+                  ✕ Close
                 </button>
               </div>
             </div>

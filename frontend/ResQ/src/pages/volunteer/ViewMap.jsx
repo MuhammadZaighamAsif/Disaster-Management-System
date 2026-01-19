@@ -91,28 +91,31 @@ const ViewMap = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4">
-        <div className="mb-6">
-          <h1 className="text-4xl font-bold mb-2">View Victims Within 5km Radius</h1>
-          <p className="text-gray-600 text-sm">
-            Powered by <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">OpenStreetMap</a> & <a href="https://leafletjs.com/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Leaflet</a>
+    <div className="min-h-screen bg-[#EBF4DD]">
+      {/* Header Section */}
+      <div className="bg-[#0F2854] text-white py-12 px-4 mb-12 shadow-lg">
+        <div className="container mx-auto px-4">
+          <h1 className="text-4xl font-bold text-white mb-2">View Victims Within 5km Radius</h1>
+          <p className="text-[#BDE8F5] text-sm">
+            Powered by <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer" className="text-[#BDE8F5] hover:underline font-semibold">OpenStreetMap</a> & <a href="https://leafletjs.com/" target="_blank" rel="noopener noreferrer" className="text-[#BDE8F5] hover:underline font-semibold">Leaflet</a> 🗺️
           </p>
         </div>
+      </div>
 
+      <div className="container mx-auto px-4 mb-12">
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <div className="bg-red-100 border-l-4 border-red-600 text-red-800 px-6 py-4 rounded-lg mb-6 shadow-md">
             {error}
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Map Section */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden border-4 border-[#BDE8F5]">
               {loading ? (
-                <div className="h-96 md:h-96 lg:h-full flex items-center justify-center bg-gray-100">
-                  <p className="text-gray-600">Loading map and victim locations...</p>
+                <div className="h-96 md:h-96 lg:h-full flex items-center justify-center bg-[#F5F7F3]">
+                  <p className="text-[#296374] font-semibold">Loading map and victim locations...</p>
                 </div>
               ) : volunteerLocation ? (
                 <MapContainer 
@@ -169,44 +172,44 @@ const ViewMap = () => {
                   ))}
                 </MapContainer>
               ) : (
-                <div className="h-96 md:h-96 lg:h-full flex items-center justify-center bg-gray-100">
-                  <p className="text-gray-600">Unable to get your location</p>
+                <div className="h-96 md:h-96 lg:h-full flex items-center justify-center bg-[#F5F7F3]">
+                  <p className="text-[#296374] font-semibold">Unable to get your location</p>
                 </div>
               )}
             </div>
           </div>
 
           {/* Victims List */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-2xl font-bold mb-4">Nearby Victims ({victims.length})</h2>
+          <div className="bg-white rounded-2xl shadow-xl p-8 border-4 border-[#BDE8F5]">
+            <h2 className="text-2xl font-bold mb-6 text-[#0F2854]">Nearby Victims ({victims.length}) 👥</h2>
             {victims.length === 0 ? (
               <div className="text-center py-8">
-                <p className="text-gray-600">No victim locations nearby</p>
+                <p className="text-[#296374] font-semibold text-lg">No victim locations nearby 📭</p>
               </div>
             ) : (
               <div className="space-y-3 max-h-96 overflow-y-auto">
                 {victims.map((victim) => (
                   <div
                     key={victim.id}
-                    className={`p-3 rounded-lg border-l-4 ${
+                    className={`p-4 rounded-xl border-l-4 transition ${
                       victim.priority === 'high'
                         ? 'border-red-600 bg-red-50'
                         : victim.priority === 'medium'
-                        ? 'border-yellow-600 bg-yellow-50'
-                        : 'border-green-600 bg-green-50'
+                        ? 'border-orange-600 bg-orange-50'
+                        : 'border-[#5A7863] bg-[#F9FDFB]'
                     }`}
                   >
-                    <p className="font-semibold text-gray-900">{victim.name}</p>
-                    <p className="text-xs text-gray-600">
-                      <FontAwesomeIcon icon={faLocationDot} className="mr-1" /> {victim.location}
+                    <p className="font-bold text-[#0F2854]">{victim.name}</p>
+                    <p className="text-sm text-[#296374] mt-1">
+                      <FontAwesomeIcon icon={faLocationDot} className="mr-1 text-[#4988C4]" /> {victim.location}
                     </p>
-                    <p className="text-xs text-gray-600 mt-1">
+                    <p className="text-sm text-[#296374] mt-1">
                       Distance: {victim.distance?.toFixed(2) || 'N/A'} km
                     </p>
-                    <p className="text-xs text-gray-600">
+                    <p className="text-sm text-[#296374]">
                       Status: {victim.status}
                     </p>
-                    <button className="mt-2 w-full bg-forest text-white text-xs py-1 rounded hover:bg-sage transition">
+                    <button className="mt-3 w-full bg-[#4988C4] text-white text-sm py-2 rounded-lg hover:bg-[#296374] transition font-semibold">
                       View Details
                     </button>
                   </div>
@@ -215,20 +218,20 @@ const ViewMap = () => {
             )}
             
             {/* Legend */}
-            <div className="mt-6 pt-4 border-t">
-              <p className="text-sm font-semibold mb-3">Priority Levels:</p>
-              <div className="space-y-2 text-xs">
-                <div className="flex items-center">
-                  <div className="w-3 h-3 bg-red-600 rounded-full mr-2"></div>
-                  <span>High Priority</span>
+            <div className="mt-8 pt-6 border-t-2 border-[#90AB8B]">
+              <p className="text-sm font-bold text-[#0F2854] mb-4">Priority Levels:</p>
+              <div className="space-y-3 text-sm">
+                <div className="flex items-center gap-3">
+                  <div className="w-4 h-4 bg-red-600 rounded-full"></div>
+                  <span className="font-semibold text-[#296374]">High Priority</span>
                 </div>
-                <div className="flex items-center">
-                  <div className="w-3 h-3 bg-yellow-600 rounded-full mr-2"></div>
-                  <span>Medium Priority</span>
+                <div className="flex items-center gap-3">
+                  <div className="w-4 h-4 bg-orange-600 rounded-full"></div>
+                  <span className="font-semibold text-[#296374]">Medium Priority</span>
                 </div>
-                <div className="flex items-center">
-                  <div className="w-3 h-3 bg-green-600 rounded-full mr-2"></div>
-                  <span>Low Priority</span>
+                <div className="flex items-center gap-3">
+                  <div className="w-4 h-4 bg-[#5A7863] rounded-full"></div>
+                  <span className="font-semibold text-[#296374]">Low Priority</span>
                 </div>
               </div>
             </div>

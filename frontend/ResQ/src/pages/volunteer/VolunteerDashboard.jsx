@@ -43,80 +43,181 @@ const VolunteerDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-[#EBF4DD] py-12">
+      {/* Header Section */}
+      <div className="bg-[#0F2854] text-white py-16 px-4 mb-12 shadow-lg">
+        <div className="container mx-auto px-4">
+          <h1 className="text-5xl font-bold mb-3 text-white">Volunteer Dashboard</h1>
+          <p className="text-[#BDE8F5] text-lg">Choose tasks, support victims, and make a real impact</p>
+        </div>
+      </div>
+
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8">Volunteer Dashboard</h1>
-        
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h2 className="text-2xl font-semibold mb-4">Welcome, {user?.name}!</h2>
-          <p className="text-gray-600 mb-4">Choose tasks, view victims on map, and update your progress.</p>
-          
-          {!loading && (
-            <div className="flex items-center gap-3 mt-4 p-4 bg-blue-50 rounded-lg">
-              <FontAwesomeIcon icon={getRoleIcon()} className="text-2xl text-blue-600" />
+        {/* Welcome Card */}
+        <div className="bg-[#296374] rounded-2xl shadow-xl p-8 mb-12 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-3xl font-bold mb-2 text-white">Welcome, {user?.name}!</h2>
+              <p className="text-[#EDEDCE] text-lg">Choose tasks, view victims on map, and update your progress.</p>
+            </div>
+            <div className="text-6xl opacity-20"></div>
+          </div>
+        </div>
+
+        {/* Role Display Card */}
+        {!loading && (
+          <div className="bg-white rounded-2xl shadow-lg p-6 mb-12 border-l-4 border-[#4988C4]">
+            <div className="flex items-center gap-4">
+              <div className="text-5xl text-[#4988C4]">
+                <FontAwesomeIcon icon={getRoleIcon()} />
+              </div>
               <div>
-                <p className="text-sm text-gray-600">Current Role</p>
-                <p className="text-lg font-semibold text-gray-800">{getRoleDisplay()}</p>
+                <p className="text-[#296374] text-sm font-semibold uppercase">Your Volunteer Role</p>
+                <p className="text-2xl font-bold text-[#0F2854]">{getRoleDisplay()}</p>
                 {profile?.skills && (
-                  <p className="text-sm text-gray-600 mt-1">Skills: {profile.skills}</p>
+                  <p className="text-[#296374] text-sm mt-2">Skills: {profile.skills}</p>
                 )}
               </div>
             </div>
-          )}
+          </div>
+        )}
+
+        {/* Quick Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-[#4988C4]">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-[#296374] text-sm font-semibold uppercase">Available Tasks</p>
+                <p className="text-3xl font-bold text-[#0F2854] mt-2">Choose One</p>
+              </div>
+              <div className="text-5xl opacity-20"></div>
+            </div>
+          </div>
+          <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-[#629FAD]">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-[#296374] text-sm font-semibold uppercase">Track Victims</p>
+                <p className="text-3xl font-bold text-[#0F2854] mt-2">View Map</p>
+              </div>
+              <div className="text-5xl opacity-20"></div>
+            </div>
+          </div>
+          <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-[#5A7863]">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-[#296374] text-sm font-semibold uppercase">Update Progress</p>
+                <p className="text-3xl font-bold text-[#0F2854] mt-2">Keep Updated</p>
+              </div>
+              <div className="text-5xl opacity-20"></div>
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Main Actions */}
+        <h3 className="text-2xl font-bold text-[#0F2854] mb-8">How can you help?</h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {/* UC-14: Choose Volunteer Role */}
-          <Link to="/volunteer/role" className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-            <div className="text-4xl mb-4 text-purple-600">
-              <FontAwesomeIcon icon={faBullseye} />
+          <Link to="/volunteer/role" className="group">
+            <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transform hover:scale-105 transition duration-300 h-full">
+              <div className="bg-[#4988C4] h-32 flex items-center justify-center text-6xl text-white shadow-md">
+                <FontAwesomeIcon icon={faBullseye} />
+              </div>
+              <div className="p-6">
+                <h3 className="text-2xl font-bold text-[#0F2854] mb-3 group-hover:text-[#4988C4] transition">Choose Role</h3>
+                <p className="text-[#296374] mb-4">Set your volunteer role (on-field/off-field)</p>
+                <div className="flex items-center text-[#4988C4] font-semibold group-hover:translate-x-2 transition">
+                  Select Role <span className="ml-2">→</span>
+                </div>
+              </div>
             </div>
-            <h3 className="text-xl font-bold mb-2">Choose Role</h3>
-            <p className="text-gray-600">Set your volunteer role (on-field/off-field)</p>
           </Link>
 
           {/* UC-15: Choose a Task */}
-          <Link to="/volunteer/tasks" className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-            <div className="text-4xl mb-4 text-green-600">
-              <FontAwesomeIcon icon={faClipboardList} />
+          <Link to="/volunteer/tasks" className="group">
+            <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transform hover:scale-105 transition duration-300 h-full">
+              <div className="bg-[#5A7863] h-32 flex items-center justify-center text-6xl text-white shadow-md">
+                <FontAwesomeIcon icon={faClipboardList} />
+              </div>
+              <div className="p-6">
+                <h3 className="text-2xl font-bold text-[#0F2854] mb-3 group-hover:text-[#5A7863] transition">Choose Task</h3>
+                <p className="text-[#296374] mb-4">Select from available volunteer tasks</p>
+                <div className="flex items-center text-[#5A7863] font-semibold group-hover:translate-x-2 transition">
+                  Browse Tasks <span className="ml-2">→</span>
+                </div>
+              </div>
             </div>
-            <h3 className="text-xl font-bold mb-2">Choose Task</h3>
-            <p className="text-gray-600">Select from available volunteer tasks</p>
           </Link>
 
           {/* UC-16: View Google Map */}
-          <Link to="/volunteer/map" className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-            <div className="text-4xl mb-4 text-blue-600">
-              <FontAwesomeIcon icon={faMap} />
+          <Link to="/volunteer/map" className="group">
+            <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transform hover:scale-105 transition duration-300 h-full">
+              <div className="bg-[#1C4D8D] h-32 flex items-center justify-center text-6xl text-white shadow-md">
+                <FontAwesomeIcon icon={faMap} />
+              </div>
+              <div className="p-6">
+                <h3 className="text-2xl font-bold text-[#0F2854] mb-3 group-hover:text-[#1C4D8D] transition">View Map</h3>
+                <p className="text-[#296374] mb-4">See victims within 5km radius</p>
+                <div className="flex items-center text-[#1C4D8D] font-semibold group-hover:translate-x-2 transition">
+                  Open Map <span className="ml-2">→</span>
+                </div>
+              </div>
             </div>
-            <h3 className="text-xl font-bold mb-2">View Map</h3>
-            <p className="text-gray-600">See victims within 5km radius</p>
           </Link>
 
           {/* UC-17: Update Tasks */}
-          <Link to="/volunteer/tasks/update" className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-            <div className="text-4xl mb-4 text-orange-600">
-              <FontAwesomeIcon icon={faPencil} />
+          <Link to="/volunteer/tasks/update" className="group">
+            <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transform hover:scale-105 transition duration-300 h-full">
+              <div className="bg-[#629FAD] h-32 flex items-center justify-center text-6xl text-white shadow-md">
+                <FontAwesomeIcon icon={faPencil} />
+              </div>
+              <div className="p-6">
+                <h3 className="text-2xl font-bold text-[#0F2854] mb-3 group-hover:text-[#629FAD] transition">Update Tasks</h3>
+                <p className="text-[#296374] mb-4">Update progress on assigned tasks</p>
+                <div className="flex items-center text-[#629FAD] font-semibold group-hover:translate-x-2 transition">
+                  Update Now <span className="ml-2">→</span>
+                </div>
+              </div>
             </div>
-            <h3 className="text-xl font-bold mb-2">Update Tasks</h3>
-            <p className="text-gray-600">Update progress on assigned tasks</p>
           </Link>
 
           {/* Report Disaster */}
-          <Link to="/volunteer/report-disaster" className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-            <div className="text-4xl mb-4 text-red-600">
-              <FontAwesomeIcon icon={faTriangleExclamation} />
+          <Link to="/volunteer/report-disaster" className="group">
+            <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transform hover:scale-105 transition duration-300 h-full">
+              <div className="bg-red-600 h-32 flex items-center justify-center text-6xl text-white shadow-md">
+                <FontAwesomeIcon icon={faTriangleExclamation} />
+              </div>
+              <div className="p-6">
+                <h3 className="text-2xl font-bold text-[#0F2854] mb-3 group-hover:text-red-600 transition">Report Disaster</h3>
+                <p className="text-[#296374] mb-4">Report a new disaster/incident</p>
+                <div className="flex items-center text-red-600 font-semibold group-hover:translate-x-2 transition">
+                  Report Now <span className="ml-2">→</span>
+                </div>
+              </div>
             </div>
-            <h3 className="text-xl font-bold mb-2">Report Disaster</h3>
-            <p className="text-gray-600">Report a new disaster/incident</p>
           </Link>
 
           {/* My Profile */}
-          <Link to="/profile" className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-            <div className="text-4xl mb-4">👤</div>
-            <h3 className="text-xl font-bold mb-2">My Profile</h3>
-            <p className="text-gray-600">View and update your profile</p>
+          <Link to="/profile" className="group">
+            <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transform hover:scale-105 transition duration-300 h-full">
+              <div className="bg-[#EDEDCE] h-32 flex items-center justify-center text-6xl shadow-md">
+                
+              </div>
+              <div className="p-6">
+                <h3 className="text-2xl font-bold text-[#0F2854] mb-3 group-hover:text-[#296374] transition">My Profile</h3>
+                <p className="text-[#296374] mb-4">View and update your profile</p>
+                <div className="flex items-center text-[#296374] font-semibold group-hover:translate-x-2 transition">
+                  View Profile <span className="ml-2">→</span>
+                </div>
+              </div>
+            </div>
           </Link>
+        </div>
+
+        {/* Footer Info */}
+        <div className="bg-[#0F2854] rounded-xl p-8 text-white text-center mb-8">
+          <h3 className="text-2xl font-bold mb-2 text-white">Thank You for Your Service</h3>
+          <p className="text-[#BDE8F5]">Your dedication and hard work make a real difference in disaster relief efforts.</p>
         </div>
       </div>
     </div>

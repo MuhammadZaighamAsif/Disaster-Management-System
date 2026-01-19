@@ -33,7 +33,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-linear-to-br bg-[#90AB8B] from-forest to-charcoal text-black shadow-lg">
+    <nav className="bg-[#0F2854] text-white shadow-lg">
       <LogoutConfirmationModal
         isOpen={showLogoutConfirmation}
         onLogoutAndSignup={handleLogoutAndSignup}
@@ -42,24 +42,24 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold">
+          <Link to="/" className="text-2xl font-bold text-white">
             ResQ
           </Link>
 
           {/* Navigation Links */}
           <div className="flex items-center gap-6">
-            <Link to="/search" className="hover:text-cream transition">
+            <Link to="/search" className="text-[#BDE8F5] hover:text-white transition">
               Search Disasters
             </Link>
             
             {!user ? (
               <>
-                <Link to="/login" className="hover:text-cream transition">
+                <Link to="/login" className="text-[#BDE8F5] hover:text-white transition">
                   Login
                 </Link>
                 <button 
                   onClick={handleSignupClick}
-                  className="bg-cream text-forest px-4 py-2 rounded-lg hover:bg-sage transition cursor-pointer border-none"
+                  className="bg-[#4988C4] text-white px-4 py-2 rounded-lg hover:bg-[#629FAD] transition cursor-pointer border-none"
                 >
                   Sign Up
                 </button>
@@ -68,16 +68,16 @@ const Navbar = () => {
               <>
                 <Link 
                   to={`/${user.role}/dashboard`} 
-                  className="hover:text-cream transition"
+                  className="text-[#BDE8F5] hover:text-white transition"
                 >
                   Dashboard
                 </Link>
-                <span className="text-sm">
+                <span className="text-sm text-[#BDE8F5]">
                   {user.name} ({user.role})
                 </span>
                 <button 
                   onClick={handleLogout}
-                  className="bg-charcoal px-4 py-2 rounded-lg hover:bg-sage transition"
+                  className="bg-[#296374] px-4 py-2 rounded-lg hover:bg-[#5A7863] transition text-white"
                 >
                   Logout
                 </button>

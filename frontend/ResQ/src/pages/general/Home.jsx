@@ -41,8 +41,8 @@ const Home = () => {
     { role: 'Off-Field', count: 80 },
   ];
 
-  const COLORS = ['#5A7863', '#90AB8B', '#EBF4DD', '#3B4953'];
-  const COLORS_VOLUNTEER = ['#5A7863', '#90AB8B'];
+  const COLORS = ['#5A7863', '#4988C4', '#629FAD', '#296374'];
+  const COLORS_VOLUNTEER = ['#5A7863', '#4988C4'];
 
   useEffect(() => {
     fetchStats();
@@ -98,16 +98,16 @@ const Home = () => {
         onStayOnPage={handleStayOnPage}
       />
       {/* Hero Section */}
-      <section className="bg-linear-to-r from-forest to-charcoal text-white py-20">
+      <section className="bg-[#0F2854] text-white py-20">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold mb-6 text-black">
+          <h1 className="text-5xl font-bold mb-6 text-white">
             Welcome to ResQ
           </h1>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-black">
+          <p className="text-xl mb-8 max-w-2xl mx-auto text-[#BDE8F5]">
             A comprehensive Disaster Relief Management System connecting victims,
             volunteers, donors, and NGOs for effective disaster response.
           </p>
-          <div className="flex gap-4 justify-center text-black">
+          <div className="flex gap-4 justify-center">
             {/* <Link
               to="/signup"
               className="bg-cream text-forest px-8 py-3 rounded-lg font-semibold hover:bg-sage transition"
@@ -122,7 +122,7 @@ const Home = () => {
             </Link> */}
             <button
               onClick={(e) => handleSignupClick(e)}
-              className="inline-block bg-red-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-charcoal transition cursor-pointer border-none"
+              className="inline-block bg-[#4988C4] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#629FAD] transition cursor-pointer border-none"
             >
               Join ResQ Now
             </button>
@@ -131,56 +131,56 @@ const Home = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-cream">
+      <section className="py-16 bg-[#EBF4DD]">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 text-[#0F2854]">Our Services</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Victim Services */}
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition border-l-4 border-forest">
-              <div className="text-4xl mb-4 text-forest">
+            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition border-l-4 border-[#5A7863]">
+              <div className="text-4xl mb-4 text-[#5A7863]">
                 <FontAwesomeIcon icon={faPersonCirclePlus} />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-forest">For Victims</h3>
-              <p className="text-gray-600 mb-4">
+              <h3 className="text-xl font-bold mb-2 text-[#0F2854]">For Victims</h3>
+              <p className="text-[#3B4953] mb-4">
                 Request aid, report your situation, and receive help from volunteers and donors.
               </p>
               <button 
                 onClick={(e) => handleSignupClick(e, 'VICTIM')}
-                className="text-forest hover:text-sage font-semibold cursor-pointer bg-none border-none p-0"
+                className="text-[#5A7863] hover:text-[#296374] font-semibold cursor-pointer bg-none border-none p-0"
               >
                 Register as Victim →
               </button>
             </div>
 
             {/* Volunteer Services */}
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition border-l-4 border-sage">
-              <div className="text-4xl mb-4 text-sage">
+            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition border-l-4 border-[#629FAD]">
+              <div className="text-4xl mb-4 text-[#629FAD]">
                 <FontAwesomeIcon icon={faHandshake} />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-sage">For Volunteers</h3>
-              <p className="text-gray-600 mb-4">
+              <h3 className="text-xl font-bold mb-2 text-[#0F2854]">For Volunteers</h3>
+              <p className="text-[#3B4953] mb-4">
                 Choose tasks, help victims on-field or off-field, and make a difference.
               </p>
               <button 
                 onClick={(e) => handleSignupClick(e, 'VOLUNTEER')}
-                className="text-sage hover:text-forest font-semibold cursor-pointer bg-none border-none p-0"
+                className="text-[#629FAD] hover:text-[#296374] font-semibold cursor-pointer bg-none border-none p-0"
               >
                 Volunteer Now →
               </button>
             </div>
 
             {/* Donor Services */}
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition border-l-4 border-charcoal">
-              <div className="text-4xl mb-4 text-charcoal">
+            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition border-l-4 border-[#4988C4]">
+              <div className="text-4xl mb-4 text-[#4988C4]">
                 <FontAwesomeIcon icon={faHeart} />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-charcoal">For Donors</h3>
-              <p className="text-gray-600 mb-4">
+              <h3 className="text-xl font-bold mb-2 text-[#0F2854]">For Donors</h3>
+              <p className="text-[#3B4953] mb-4">
                 Donate money, items, or shelter to specific disasters or general relief.
               </p>
               <button 
                 onClick={(e) => handleSignupClick(e, 'DONOR')}
-                className="text-charcoal hover:text-forest font-semibold cursor-pointer bg-none border-none p-0"
+                className="text-[#4988C4] hover:text-[#296374] font-semibold cursor-pointer bg-none border-none p-0"
               >
                 Start Donating →
               </button>
@@ -191,8 +191,8 @@ const Home = () => {
 
 
       {/* Stats Section */}
-      <section className="py-16 bg-cream text-black">
-        <div className="container mx-auto px-4 bg-blue-500 p-8 rounded-lg shadow-md">
+      <section className="py-16 bg-[#EBF4DD] text-black">
+        <div className="container mx-auto px-4 bg-[#0F2854] p-8 rounded-lg shadow-md text-white">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-4xl font-bold mb-2">
@@ -223,14 +223,14 @@ const Home = () => {
       </section>
 
       {/* Charts Section */}
-      <section className="py-16 bg-cream">
+      <section className="py-16 bg-[#EBF4DD]">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Platform Analytics</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 text-[#0F2854]">Platform Analytics</h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Line Chart - Monthly Trends */}
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold mb-4">Monthly Trends</h3>
+              <h3 className="text-xl font-bold mb-4 text-[#0F2854]">Monthly Trends</h3>
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={monthlyData}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -239,15 +239,15 @@ const Home = () => {
                   <Tooltip />
                   <Legend />
                   <Line type="monotone" dataKey="victims" stroke="#5A7863" strokeWidth={2} />
-                  <Line type="monotone" dataKey="volunteers" stroke="#90AB8B" strokeWidth={2} />
-                  <Line type="monotone" dataKey="donors" stroke="#3B4953" strokeWidth={2} />
+                  <Line type="monotone" dataKey="volunteers" stroke="#4988C4" strokeWidth={2} />
+                  <Line type="monotone" dataKey="donors" stroke="#296374" strokeWidth={2} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
 
             {/* Pie Chart - Disaster Types */}
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold mb-4">Disaster Types</h3>
+              <h3 className="text-xl font-bold mb-4 text-[#0F2854]">Disaster Types</h3>
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie
@@ -271,7 +271,7 @@ const Home = () => {
 
             {/* Bar Chart - Volunteer Roles */}
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold mb-4">Volunteer Distribution</h3>
+              <h3 className="text-xl font-bold mb-4 text-[#0F2854]">Volunteer Distribution</h3>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={volunteerRoleData}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -279,7 +279,7 @@ const Home = () => {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="count" fill="#5A7863" name="Volunteers" />
+                  <Bar dataKey="count" fill="#4988C4" name="Volunteers" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -288,10 +288,10 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16">
+      <section className="py-16 bg-[#EBF4DD]">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to Make a Difference?</h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold mb-6 text-[#0F2854]">Ready to Make a Difference?</h2>
+          <p className="text-xl text-[#3B4953] mb-8 max-w-2xl mx-auto">
             Join ResQ today and be part of a community dedicated to helping
             disaster victims and coordinating relief efforts.
           </p>

@@ -134,26 +134,33 @@ const DonateItems = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cream py-8">
-      <div className="container mx-auto px-4 max-w-2xl">
-        <h1 className="text-4xl font-bold mb-8 text-forest">Donate Items</h1>
+    <div className="min-h-screen bg-[#EBF4DD] py-12">
+      {/* Header */}
+      <div className="bg-[#5A7863] text-white py-12 px-4 mb-8 shadow-lg">
+        <div className="container mx-auto px-4 max-w-2xl">
+          <h1 className="text-4xl font-bold mb-2 text-white">Donate Items</h1>
+          <p className="text-[#EDEDCE]">Share essentials to help disaster-affected families get back on their feet</p>
+        </div>
+      </div>
 
+      <div className="container mx-auto px-4 max-w-2xl">
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-            {error}
+          <div className="bg-red-100 border-l-4 border-red-500 text-red-700 px-6 py-4 rounded-lg mb-6 shadow-md">
+            <p className="font-semibold">Error</p>
+            <p>{error}</p>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-8 space-y-6">
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-8 space-y-6">
           <div>
-            <label className="block text-sm font-medium text-forest mb-2">
+            <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
               Item Type *
             </label>
             <select
               name="itemType"
               value={formData.itemType}
               onChange={handleSelectChange}
-              className="w-full px-4 py-2 border border-forest rounded-lg focus:outline-none focus:ring-2 focus:ring-sage"
+              className="w-full px-4 py-3 border-2 border-[#EBF4DD] rounded-lg focus:outline-none focus:border-[#5A7863] focus:ring-2 focus:ring-[#5A7863] focus:ring-opacity-20"
             >
               {itemTypes.map((item) => (
                 <option key={item.value} value={item.value}>
@@ -164,7 +171,7 @@ const DonateItems = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-forest mb-2">
+            <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
               Quantity *
             </label>
             <input
@@ -173,16 +180,16 @@ const DonateItems = () => {
               min="1"
               value={formData.quantity}
               onChange={handleInputChange}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                errors.quantity ? 'border-red-500 focus:ring-red-400' : 'border-forest focus:ring-sage'
+              className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${
+                errors.quantity ? 'border-red-500 focus:border-red-500 focus:ring-red-400' : 'border-[#EBF4DD] focus:border-[#5A7863] focus:ring-[#5A7863] focus:ring-opacity-20'
               }`}
               placeholder="Enter quantity"
             />
-            {errors.quantity && <p className="text-red-600 text-xs mt-1">{errors.quantity}</p>}
+            {errors.quantity && <p className="text-red-600 text-sm mt-2 font-semibold">⚠️ {errors.quantity}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-forest mb-2">
+            <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
               Description (Optional)
             </label>
             <textarea
@@ -190,37 +197,37 @@ const DonateItems = () => {
               rows="3"
               value={formData.description}
               onChange={handleInputChange}
-              className="w-full px-4 py-2 border border-forest rounded-lg focus:outline-none focus:ring-2 focus:ring-sage"
-              placeholder="Provide details about the items..."
+              className="w-full px-4 py-3 border-2 border-[#EBF4DD] rounded-lg focus:outline-none focus:border-[#5A7863] focus:ring-2 focus:ring-[#5A7863] focus:ring-opacity-20"
+              placeholder="Provide details about the items (condition, expiry date, etc.)..."
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-forest mb-2">
+            <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
               Donation Type *
             </label>
             <select
               name="donationType"
               value={formData.donationType}
               onChange={handleSelectChange}
-              className="w-full px-4 py-2 border border-forest rounded-lg focus:outline-none focus:ring-2 focus:ring-sage"
+              className="w-full px-4 py-3 border-2 border-[#EBF4DD] rounded-lg focus:outline-none focus:border-[#5A7863] focus:ring-2 focus:ring-[#5A7863] focus:ring-opacity-20"
             >
-              <option value="general">General</option>
+              <option value="general">General Distribution</option>
               <option value="specific">Specific Disaster</option>
             </select>
           </div>
 
           {formData.donationType === 'specific' && (
             <div>
-              <label className="block text-sm font-medium text-forest mb-2">
+              <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
                 Select Disaster *
               </label>
               <select
                 name="disasterId"
                 value={formData.disasterId}
                 onChange={handleSelectChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                  errors.disasterId ? 'border-red-500 focus:ring-red-400' : 'border-forest focus:ring-sage'
+                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${
+                  errors.disasterId ? 'border-red-500 focus:border-red-500 focus:ring-red-400' : 'border-[#EBF4DD] focus:border-[#5A7863] focus:ring-[#5A7863] focus:ring-opacity-20'
                 }`}
               >
                 <option value="">-- Choose a disaster --</option>
@@ -230,40 +237,52 @@ const DonateItems = () => {
                   </option>
                 ))}
               </select>
-              {errors.disasterId && <p className="text-red-600 text-xs mt-1">{errors.disasterId}</p>}
+              {errors.disasterId && <p className="text-red-600 text-sm mt-2 font-semibold">⚠️ {errors.disasterId}</p>}
             </div>
           )}
 
-          <div className="bg-sage bg-opacity-20 border border-sage rounded-lg p-4">
-            <h3 className="font-semibold text-forest mb-2">Donation Summary</h3>
-            <p className="text-charcoal">
-              Items: <strong>{itemTypes.find(i => i.value === formData.itemType)?.label}</strong>
-            </p>
-            <p className="text-charcoal">
-              Quantity: <strong>{formData.quantity || '0'}</strong>
-            </p>
-            <p className="text-charcoal">
-              Type: <strong>{formData.donationType === 'general' ? 'General' : 'Specific Disaster'}</strong>
-            </p>
+          <div className="bg-[#EDEDCE] border-2 border-[#5A7863] rounded-xl p-6">
+            <h3 className="font-bold text-[#0F2854] mb-4 text-lg">📦 Donation Summary</h3>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-[#296374] font-semibold">Item Type:</span>
+                <span className="px-3 py-1 bg-[#5A7863] text-white rounded-full text-sm font-semibold">{itemTypes.find(i => i.value === formData.itemType)?.label}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-[#296374] font-semibold">Quantity:</span>
+                <span className="text-xl font-bold text-[#5A7863]">{formData.quantity || '0'} units</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-[#296374] font-semibold">Distribution:</span>
+                <span className="px-3 py-1 bg-[#296374] text-white rounded-full text-sm font-semibold">{formData.donationType === 'general' ? 'General' : 'Specific'}</span>
+              </div>
+            </div>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 pt-4">
             <button
               type="submit"
               disabled={loading || hasErrors(errors)}
-              className="flex-1 bg-forest text-white py-3 rounded-lg hover:bg-charcoal transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+              className="flex-1 bg-[#5A7863] text-white py-3 rounded-lg hover:shadow-lg transform hover:scale-105 transition duration-300 font-bold uppercase tracking-wide disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
               {loading ? 'Processing...' : 'Confirm Donation'}
             </button>
             <button
               type="button"
               onClick={() => navigate('/donor/dashboard')}
-              className="flex-1 bg-sage text-white py-3 rounded-lg hover:bg-forest transition"
+              className="flex-1 bg-[#296374] text-white py-3 rounded-lg hover:shadow-lg hover:bg-[#3B4953] transition duration-300 font-bold uppercase tracking-wide"
             >
               Cancel
             </button>
           </div>
         </form>
+
+        {/* Info Box */}
+        <div className="mt-8 bg-[#EBF4DD] rounded-xl p-6 border-l-4 border-[#5A7863]">
+          <p className="text-[#3B4953] text-sm">
+            <span className="font-bold">Pickup:</span> Our team will arrange pickup from your location at your convenience.
+          </p>
+        </div>
       </div>
     </div>
   );

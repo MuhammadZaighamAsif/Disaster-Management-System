@@ -109,44 +109,50 @@ const ChooseRole = () => {
 
   if (loadingProfile) {
     return (
-      <div className="min-h-screen bg-gray-50 py-8 flex items-center justify-center">
-        <div className="text-xl text-gray-600">Loading...</div>
+      <div className="min-h-screen bg-[#EBF4DD] py-8 flex items-center justify-center">
+        <div className="text-xl text-[#296374]">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4 max-w-3xl">
-        <h1 className="text-4xl font-bold mb-8">Choose Your Volunteer Role</h1>
+    <div className="min-h-screen bg-[#EBF4DD]">
+      {/* Header Section */}
+      <div className="bg-[#0F2854] text-white py-12 px-4 mb-12 shadow-lg">
+        <div className="container mx-auto px-4">
+          <h1 className="text-4xl font-bold text-white mb-2">Choose Your Volunteer Role</h1>
+          <p className="text-[#BDE8F5]">Select whether you'll work on-field or off-field</p>
+        </div>
+      </div>
 
+      <div className="container mx-auto px-4 max-w-3xl mb-12">
         {profile?.volunteerRole && (
-          <div className="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded mb-4">
-            <p className="font-semibold">Current Role: {profile.volunteerRole === 'ON-FIELD' ? 'On-Field Volunteer' : 'Off-Field Volunteer'}</p>
+          <div className="bg-[#4988C4] border-l-4 border-[#1C4D8D] text-white px-6 py-4 rounded-lg mb-6 shadow-md">
+            <p className="font-semibold text-lg">Current Role: {profile.volunteerRole === 'ON-FIELD' ? 'On-Field Volunteer' : 'Off-Field Volunteer'}</p>
           </div>
         )}
 
         {hasActiveTasks && (
-          <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
-            <p className="font-semibold">⚠️ You have active tasks</p>
-            <p className="text-sm">You cannot change your role while you have active tasks. Please complete or cancel them first.</p>
+          <div className="bg-orange-100 border-l-4 border-orange-600 text-orange-800 px-6 py-4 rounded-lg mb-6 shadow-md">
+            <p className="font-semibold text-lg">⚠️ You have active tasks</p>
+            <p className="text-sm mt-1">You cannot change your role while you have active tasks. Please complete or cancel them first.</p>
           </div>
         )}
 
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <div className="bg-red-100 border-l-4 border-red-600 text-red-800 px-6 py-4 rounded-lg mb-6 shadow-md">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-8 space-y-6">
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-10 space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-4">
-              Select Your Role *
+            <label className="block text-sm  text-[#0F2854] mb-4 font-semibold">
+              Select Your Role 👷 *
             </label>
             <div className="space-y-3">
-              <label className="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-blue-500 transition" 
-                     style={{ borderColor: selectedRole === 'on-field' ? '#2563eb' : '#d1d5db' }}>
+              <label className="flex items-center p-5 border-2 rounded-xl cursor-pointer transition transform hover:scale-102" 
+                     style={{ borderColor: selectedRole === 'on-field' ? '#4988C4' : '#D1D5DB', backgroundColor: selectedRole === 'on-field' ? '#EBF9FF' : 'white' }}>
                 <input
                   type="radio"
                   name="role"
@@ -154,16 +160,16 @@ const ChooseRole = () => {
                   checked={selectedRole === 'on-field'}
                   onChange={(e) => setSelectedRole(e.target.value)}
                   disabled={hasActiveTasks}
-                  className="mr-3"
+                  className="mr-4 w-5 h-5"
                 />
                 <div>
-                  <p className="font-semibold text-gray-900">On-Field Volunteer</p>
-                  <p className="text-sm text-gray-600">Work directly with affected people and provide assistance</p>
+                  <p className="font-bold text-[#0F2854] text-lg">On-Field Volunteer</p>
+                  <p className="text-sm text-[#296374]">Work directly with affected people and provide assistance on-site</p>
                 </div>
               </label>
 
-              <label className="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-blue-500 transition"
-                     style={{ borderColor: selectedRole === 'off-field' ? '#2563eb' : '#d1d5db' }}>
+              <label className="flex items-center p-5 border-2 rounded-xl cursor-pointer transition transform hover:scale-102"
+                     style={{ borderColor: selectedRole === 'off-field' ? '#4988C4' : '#D1D5DB', backgroundColor: selectedRole === 'off-field' ? '#EBF9FF' : 'white' }}>
                 <input
                   type="radio"
                   name="role"
@@ -171,11 +177,11 @@ const ChooseRole = () => {
                   checked={selectedRole === 'off-field'}
                   onChange={(e) => setSelectedRole(e.target.value)}
                   disabled={hasActiveTasks}
-                  className="mr-3"
+                  className="mr-4 w-5 h-5"
                 />
                 <div>
-                  <p className="font-semibold text-gray-900">Off-Field Volunteer</p>
-                  <p className="text-sm text-gray-600">Support from administrative and coordination tasks</p>
+                  <p className="font-bold text-[#0F2854] text-lg">💻 Off-Field Volunteer</p>
+                  <p className="text-sm text-[#296374]">Support from administrative centers, coordination, and remote tasks</p>
                 </div>
               </label>
             </div>
@@ -184,58 +190,58 @@ const ChooseRole = () => {
           {selectedRole && (
             <>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm  text-[#0F2854] mb-2 font-semibold">
                   Skills
                 </label>
                 <input
                   type="text"
                   value={additionalDetails.skills}
                   onChange={(e) => setAdditionalDetails({ ...additionalDetails, skills: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 border-2 border-[#90AB8B] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#F9FDFB] text-[#0F2854]"
                   placeholder="e.g., First Aid, Medical, Logistics"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm  text-[#0F2854] mb-2 font-semibold">
                   Available Working Hours
                 </label>
                 <input
                   type="text"
                   value={additionalDetails.workingHours}
                   onChange={(e) => setAdditionalDetails({ ...additionalDetails, workingHours: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 border-2 border-[#90AB8B] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#F9FDFB] text-[#0F2854]"
                   placeholder="e.g., Full-time, Part-time, Weekends only"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Relevant Experience
+                <label className="block text-sm  text-[#0F2854] mb-2 font-semibold">
+                  📚 Relevant Experience
                 </label>
                 <textarea
                   rows="3"
                   value={additionalDetails.experience}
                   onChange={(e) => setAdditionalDetails({ ...additionalDetails, experience: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 border-2 border-[#90AB8B] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#F9FDFB] text-[#0F2854]"
                   placeholder="Describe your relevant experience..."
                 />
               </div>
             </>
           )}
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 pt-6">
             <button
               type="submit"
               disabled={loading || !selectedRole || hasActiveTasks}
-              className="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400"
+              className="flex-1 bg-[#4988C4] text-white py-3 rounded-xl hover:bg-[#296374] transition disabled:bg-gray-400 font-bold shadow-md"
             >
               {loading ? 'Saving...' : 'Confirm Role Selection'}
             </button>
             <button
               type="button"
               onClick={() => navigate('/volunteer/dashboard')}
-              className="flex-1 bg-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-400 transition"
+              className="flex-1 bg-[#EDEDCE] text-[#0F2854] py-3 rounded-xl hover:bg-[#E0E1C7] transition font-bold shadow-md"
             >
               Cancel
             </button>

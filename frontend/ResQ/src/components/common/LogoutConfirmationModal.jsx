@@ -9,7 +9,7 @@ const LogoutConfirmationModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-[#0F2854] bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-2xl p-8 max-w-md w-full mx-4">
         {/* Header */}
         <div className="flex items-center gap-3 mb-4">
@@ -39,13 +39,13 @@ const LogoutConfirmationModal = ({
         <div className="flex gap-3">
           <button
             onClick={onLogoutAndSignup}
-            className="flex-1 bg-forest text-white py-2 rounded-lg hover:bg-charcoal transition font-semibold"
+            className="flex-1 bg-forest text-black cursor-pointer py-2 rounded-lg hover:bg-charcoal transition font-semibold"
           >
             Logout & Sign Up
           </button>
           <button
             onClick={onStayOnPage}
-            className="flex-1 bg-sage text-white py-2 rounded-lg hover:bg-forest transition font-semibold"
+            className="flex-1 bg-sage text-black py-2  cursor-pointer rounded-lg hover:bg-forest transition font-semibold"
           >
             Stay Here
           </button>

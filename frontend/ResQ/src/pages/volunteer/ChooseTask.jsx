@@ -118,43 +118,43 @@ const ChooseTask = () => {
               </div>
             </div>
             
-            <p className="text-gray-600 mb-3">{task.description}</p>
+            <p className="text-[#296374] mb-3">{task.description}</p>
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm mb-3">
               <div>
-                <span className="text-gray-500">Type:</span>
-                <span className="ml-2 font-medium">{task.taskType.replace(/_/g, ' ')}</span>
+                <span className="text-[#5A7863] font-semibold">Type:</span>
+                <span className="ml-2 font-medium text-[#0F2854]">{task.taskType.replace(/_/g, ' ')}</span>
               </div>
               {task.location && (
                 <div>
-                  <span className="text-gray-500">Location:</span>
-                  <span className="ml-2 font-medium">{task.location}</span>
+                  <span className="text-[#5A7863] font-semibold">Location:</span>
+                  <span className="ml-2 font-medium text-[#0F2854]">{task.location}</span>
                 </div>
               )}
               {task.disaster?.name && (
                 <div>
-                  <span className="text-gray-500">Disaster:</span>
-                  <span className="ml-2 font-medium">{task.disaster.name}</span>
+                  <span className="text-[#5A7863] font-semibold">Disaster:</span>
+                  <span className="ml-2 font-medium text-[#0F2854]">{task.disaster.name}</span>
                 </div>
               )}
               {task.estimatedDuration && (
                 <div>
-                  <span className="text-gray-500">Duration:</span>
-                  <span className="ml-2 font-medium">{task.estimatedDuration}h</span>
+                  <span className="text-[#5A7863] font-semibold">Duration:</span>
+                  <span className="ml-2 font-medium text-[#0F2854]">{task.estimatedDuration}h</span>
                 </div>
               )}
             </div>
 
-            <div className="flex items-center gap-4 mt-3 pt-3 border-t border-gray-200">
+            <div className="flex items-center gap-4 mt-3 pt-3 border-t-2 border-[#90AB8B]">
               <div className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-[#4988C4]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
-                <span className="font-semibold text-gray-700">
+                <span className="font-semibold text-[#0F2854]">
                   {task.volunteersAssigned} / {task.volunteersRequired} volunteers
                 </span>
               </div>
-              <span className={`text-sm font-medium ${spotsLeft > 0 ? 'text-green-600' : 'text-gray-500'}`}>
+              <span className={`text-sm font-bold ${spotsLeft > 0 ? 'text-[#5A7863]' : 'text-[#90AB8B]'}`}>
                 {spotsLeft > 0 ? `${spotsLeft} spot${spotsLeft !== 1 ? 's' : ''} left` : 'Full'}
               </span>
             </div>
@@ -166,53 +166,55 @@ const ChooseTask = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 py-8">
+      <div className="min-h-screen bg-[#EBF4DD] py-8">
         <div className="container mx-auto px-4 text-center">
-          <div className="text-xl">Loading available tasks...</div>
+          <div className="text-xl text-[#296374]">Loading available tasks...</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-2">Choose a Task</h1>
-        <p className="text-gray-600 mb-8">Select a task that matches your availability and skills</p>
+    <div className="min-h-screen bg-[#EBF4DD]">
+      {/* Header Section */}
+      <div className="bg-[#0F2854] text-white py-12 px-4 mb-12 shadow-lg">
+        <div className="container mx-auto px-4">
+          <h1 className="text-4xl font-bold text-white mb-2">Choose a Task</h1>
+          <p className="text-[#BDE8F5]">Select a task that matches your availability and skills</p>
+        </div>
+      </div>
 
+      <div className="container mx-auto px-4">
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+          <div className="bg-red-100 border-l-4 border-red-600 text-red-800 px-6 py-4 rounded-lg mb-6 shadow-md">
             {error}
           </div>
         )}
 
         {tasks.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-md p-8 text-center">
-            <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="bg-white rounded-2xl shadow-xl p-12 text-center mb-12">
+            <svg className="w-20 h-20 text-[#90AB8B] mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
             </svg>
-            <p className="text-gray-600 text-lg">No tasks available at the moment</p>
-            <p className="text-gray-500 text-sm mt-2">Check back later for new volunteer opportunities</p>
+            <p className="text-[#296374] text-lg font-bold">No tasks available at the moment 📭</p>
+            <p className="text-[#5A7863] text-sm mt-2">Check back later for new volunteer opportunities</p>
           </div>
         ) : (
           <form onSubmit={handleSelectTask} className="space-y-8">
             {/* On-Field Tasks */}
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <h2 className="text-2xl font-bold text-gray-800">On-Field Tasks</h2>
-                <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+                <span className="text-3xl"></span>
+                <h2 className="text-2xl font-bold text-[#0F2854]">On-Field Tasks</h2>
+                <span className="bg-[#4988C4] text-white px-3 py-1 rounded-full text-sm font-semibold">
                   {onFieldTasks.length} available
                 </span>
               </div>
-              <p className="text-gray-600 mb-4 text-sm">Tasks that require physical presence at the disaster site</p>
+              <p className="text-[#296374] mb-4 text-sm">Tasks that require physical presence at the disaster site</p>
               
               {onFieldTasks.length === 0 ? (
-                <div className="bg-gray-50 rounded-lg p-6 text-center text-gray-500">
-                  No on-field tasks available
+                <div className="bg-[#F5F7F3] rounded-xl p-6 text-center text-[#296374]">
+                  No on-field tasks available 📭
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -224,19 +226,17 @@ const ChooseTask = () => {
             {/* Off-Field Tasks */}
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                <h2 className="text-2xl font-bold text-gray-800">Off-Field Tasks</h2>
-                <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                <span className="text-3xl">💻</span>
+                <h2 className="text-2xl font-bold text-[#0F2854]">Off-Field Tasks</h2>
+                <span className="bg-[#5A7863] text-white px-3 py-1 rounded-full text-sm font-semibold">
                   {offFieldTasks.length} available
                 </span>
               </div>
-              <p className="text-gray-600 mb-4 text-sm">Tasks that can be done remotely or from coordination centers</p>
+              <p className="text-[#296374] mb-4 text-sm">Tasks that can be done remotely or from coordination centers</p>
               
               {offFieldTasks.length === 0 ? (
-                <div className="bg-gray-50 rounded-lg p-6 text-center text-gray-500">
-                  No off-field tasks available
+                <div className="bg-[#F5F7F3] rounded-xl p-6 text-center text-[#296374]">
+                  No off-field tasks available 📭
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -246,18 +246,18 @@ const ChooseTask = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-4 sticky bottom-4 bg-white p-4 rounded-lg shadow-lg border border-gray-200">
+            <div className="flex gap-4 sticky bottom-6 bg-white p-6 rounded-2xl shadow-2xl border-t-4 border-[#4988C4] mt-8">
               <button
                 type="submit"
                 disabled={!selectedTaskId}
-                className="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed font-semibold"
+                className="flex-1 bg-[#4988C4] text-white py-3 rounded-xl hover:bg-[#296374] transition disabled:bg-gray-400 disabled:cursor-not-allowed font-bold"
               >
-                Confirm Task Selection
+                Confirm Task
               </button>
               <button
                 type="button"
                 onClick={() => navigate('/volunteer/dashboard')}
-                className="flex-1 bg-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-400 transition font-semibold"
+                className="flex-1 bg-[#EDEDCE] text-[#0F2854] py-3 rounded-xl hover:bg-[#E0E1C7] transition font-bold"
               >
                 Cancel
               </button>

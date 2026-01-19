@@ -160,23 +160,28 @@ const Signup = () => {
         onStayOnPage={handleStayOnPage}
       />
 
-      <div className="min-h-screen bg-linear-to-br from-sage to-forest flex items-center justify-center px-4 py-8">
-      <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-2xl">
-        <h2 className="text-3xl font-bold text-center mb-6 text-forest">
-          Sign Up for ResQ
-        </h2>
+      <div className="min-h-screen bg-linear-to-br from-[#0F2854] via-[#1C4D8D] to-[#4988C4] flex items-center justify-center px-4 py-8">
+      <div className="bg-white rounded-2xl shadow-2xl overflow-hidden w-full max-w-2xl transform hover:scale-105 transition duration-300">
+        {/* Header Gradient */}
+        <div className="bg-linear-to-r from-[#0F2854] to-[#4988C4] px-8 py-10 text-center text-white">
+          {/* <div className="text-5xl mb-3"></div> */}
+          <h2 className="text-3xl font-bold">Join ResQ</h2>
+          <p className="text-[#BDE8F5] mt-2">Create your account and make a difference</p>
+        </div>
 
+        <div className="px-8 py-8">
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-            {error}
+          <div className="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-4 rounded-lg mb-6 shadow-md">
+            <p className="font-semibold">Error</p>
+            <p className="text-sm mt-1">{error}</p>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Full Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
                 Full Name
               </label>
               <input
@@ -184,16 +189,17 @@ const Signup = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                  errors.name ? 'border-red-500 focus:ring-red-400' : 'border-forest focus:ring-sage'
+                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${
+                  errors.name ? 'border-red-500 focus:ring-red-400' : 'border-[#EBF4DD] focus:border-[#4988C4] focus:ring-[#4988C4] focus:ring-opacity-20'
                 }`}
+                placeholder="Enter your full name"
               />
-              {errors.name && <p className="text-red-600 text-xs mt-1">{errors.name}</p>}
+              {errors.name && <p className="text-red-600 text-sm mt-2 font-semibold">⚠️ {errors.name}</p>}
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
                 Email
               </label>
               <input
@@ -201,18 +207,19 @@ const Signup = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                  errors.email ? 'border-red-500 focus:ring-red-400' : 'border-forest focus:ring-sage'
+                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${
+                  errors.email ? 'border-red-500 focus:ring-red-400' : 'border-[#EBF4DD] focus:border-[#4988C4] focus:ring-[#4988C4] focus:ring-opacity-20'
                 }`}
+                placeholder="you@example.com"
               />
-              {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
+              {errors.email && <p className="text-red-600 text-sm mt-2 font-semibold">⚠️ {errors.email}</p>}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Phone Number */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
                 Phone Number
               </label>
               <input
@@ -220,17 +227,17 @@ const Signup = () => {
                 name="phone"
                 value={formData.phone}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                  errors.phone ? 'border-red-500 focus:ring-red-400' : 'border-forest focus:ring-sage'
+                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${
+                  errors.phone ? 'border-red-500 focus:ring-red-400' : 'border-[#EBF4DD] focus:border-[#4988C4] focus:ring-[#4988C4] focus:ring-opacity-20'
                 }`}
                 placeholder="+92-XXX-XXXXXXX"
               />
-              {errors.phone && <p className="text-red-600 text-xs mt-1">{errors.phone}</p>}
+              {errors.phone && <p className="text-red-600 text-sm mt-2 font-semibold">⚠️ {errors.phone}</p>}
             </div>
 
             {/* CNIC */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
                 CNIC
               </label>
               <input
@@ -238,18 +245,18 @@ const Signup = () => {
                 name="cnic"
                 value={formData.cnic}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                  errors.cnic ? 'border-red-500 focus:ring-red-400' : 'border-forest focus:ring-sage'
+                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${
+                  errors.cnic ? 'border-red-500 focus:ring-red-400' : 'border-[#EBF4DD] focus:border-[#4988C4] focus:ring-[#4988C4] focus:ring-opacity-20'
                 }`}
                 placeholder="XXXXX-XXXXXXX-X"
               />
-              {errors.cnic && <p className="text-red-600 text-xs mt-1">{errors.cnic}</p>}
+              {errors.cnic && <p className="text-red-600 text-sm mt-2 font-semibold">⚠️ {errors.cnic}</p>}
             </div>
           </div>
 
           {/* Address */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
               Address
             </label>
             <input
@@ -257,25 +264,25 @@ const Signup = () => {
               name="address"
               value={formData.address}
               onChange={handleInputChange}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                errors.address ? 'border-red-500 focus:ring-red-400' : 'border-forest focus:ring-sage'
+              className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${
+                errors.address ? 'border-red-500 focus:ring-red-400' : 'border-[#EBF4DD] focus:border-[#4988C4] focus:ring-[#4988C4] focus:ring-opacity-20'
               }`}
               placeholder="Enter your full address"
             />
-            {errors.address && <p className="text-red-600 text-xs mt-1">{errors.address}</p>}
+            {errors.address && <p className="text-red-600 text-sm mt-2 font-semibold">⚠️ {errors.address}</p>}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Role */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
                 Role
               </label>
               <select
                 name="role"
                 value={formData.role}
                 onChange={handleSelectChange}
-                className="w-full px-4 py-2 border border-forest rounded-lg focus:outline-none focus:ring-2 focus:ring-sage"
+                className="w-full px-4 py-3 border-2 border-[#EBF4DD] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] focus:ring-opacity-20 transition"
               >
                 <option value="VICTIM">Victim</option>
                 <option value="VOLUNTEER">Volunteer</option>
@@ -286,52 +293,52 @@ const Signup = () => {
             {/* Donor Type */}
             {formData.role === 'DONOR' && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
                   Donor Type *
                 </label>
                 <select
                   name="donorType"
                   value={formData.donorType}
                   onChange={handleSelectChange}
-                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                    errors.donorType ? 'border-red-500 focus:ring-red-400' : 'border-forest focus:ring-sage'
+                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${
+                    errors.donorType ? 'border-red-500 focus:ring-red-400' : 'border-[#EBF4DD] focus:border-[#4988C4] focus:ring-[#4988C4] focus:ring-opacity-20'
                   }`}
                 >
                   <option value="">Select Type</option>
                   <option value="individual">Individual</option>
                   <option value="organization">Organization</option>
                 </select>
-                {errors.donorType && <p className="text-red-600 text-xs mt-1">{errors.donorType}</p>}
+                {errors.donorType && <p className="text-red-600 text-sm mt-2 font-semibold">⚠️ {errors.donorType}</p>}
               </div>
             )}
 
             {/* Volunteer Role */}
             {formData.role === 'VOLUNTEER' && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
                   Volunteer Role *
                 </label>
                 <select
                   name="volunteerRole"
                   value={formData.volunteerRole}
                   onChange={handleSelectChange}
-                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                    errors.volunteerRole ? 'border-red-500 focus:ring-red-400' : 'border-forest focus:ring-sage'
+                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${
+                    errors.volunteerRole ? 'border-red-500 focus:ring-red-400' : 'border-[#EBF4DD] focus:border-[#4988C4] focus:ring-[#4988C4] focus:ring-opacity-20'
                   }`}
                 >
                   <option value="">Select Role</option>
                   <option value="on-field">On-Field</option>
                   <option value="off-field">Off-Field</option>
                 </select>
-                {errors.volunteerRole && <p className="text-red-600 text-xs mt-1">{errors.volunteerRole}</p>}
+                {errors.volunteerRole && <p className="text-red-600 text-sm mt-2 font-semibold">⚠️ {errors.volunteerRole}</p>}
               </div>
             )}
           </div>
 
           {/* Volunteer Skills */}
           {formData.role === 'VOLUNTEER' && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+            <div className="md:col-span-2">
+              <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
                 Skills (Optional)
               </label>
               <input
@@ -339,19 +346,19 @@ const Signup = () => {
                 name="volunteerSkills"
                 value={formData.volunteerSkills}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                  errors.volunteerSkills ? 'border-red-500 focus:ring-red-400' : 'border-forest focus:ring-sage'
+                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${
+                  errors.volunteerSkills ? 'border-red-500 focus:ring-red-400' : 'border-[#EBF4DD] focus:border-[#4988C4] focus:ring-[#4988C4] focus:ring-opacity-20'
                 }`}
                 placeholder="e.g., Medical, Transportation, Communication"
               />
-              {errors.volunteerSkills && <p className="text-red-600 text-xs mt-1">{errors.volunteerSkills}</p>}
+              {errors.volunteerSkills && <p className="text-red-600 text-sm mt-2 font-semibold">⚠️ {errors.volunteerSkills}</p>}
             </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Password */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
                 Password
               </label>
               <input
@@ -359,16 +366,16 @@ const Signup = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                  errors.password ? 'border-red-500 focus:ring-red-400' : 'border-forest focus:ring-sage'
+                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${
+                  errors.password ? 'border-red-500 focus:ring-red-400' : 'border-[#EBF4DD] focus:border-[#4988C4] focus:ring-[#4988C4] focus:ring-opacity-20'
                 }`}
               />
-              {errors.password && <p className="text-red-600 text-xs mt-1">{errors.password}</p>}
+              {errors.password && <p className="text-red-600 text-sm mt-2 font-semibold">⚠️ {errors.password}</p>}
             </div>
 
             {/* Confirm Password */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
                 Confirm Password
               </label>
               <input
@@ -376,11 +383,11 @@ const Signup = () => {
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                  errors.confirmPassword ? 'border-red-500 focus:ring-red-400' : 'border-forest focus:ring-sage'
+                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${
+                  errors.confirmPassword ? 'border-red-500 focus:ring-red-400' : 'border-[#EBF4DD] focus:border-[#4988C4] focus:ring-[#4988C4] focus:ring-opacity-20'
                 }`}
               />
-              {errors.confirmPassword && <p className="text-red-600 text-xs mt-1">{errors.confirmPassword}</p>}
+              {errors.confirmPassword && <p className="text-red-600 text-sm mt-2 font-semibold">⚠️ {errors.confirmPassword}</p>}
             </div>
           </div>
 
@@ -402,6 +409,7 @@ const Signup = () => {
           </p>
         </div>
       </div>
+    </div>
     </div>
     </>
   );

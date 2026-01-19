@@ -79,35 +79,45 @@ const DonateMoney = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4 max-w-2xl">
-        <h1 className="text-4xl font-bold mb-8">Donate Money</h1>
+    <div className="min-h-screen bg-[#EBF4DD] py-12">
+      {/* Header */}
+      <div className="bg-[#4988C4] text-white py-12 px-4 mb-8 shadow-lg">
+        <div className="container mx-auto px-4 max-w-2xl">
+          <h1 className="text-4xl font-bold mb-2 text-white">Donate Money</h1>
+          <p className="text-[#BDE8F5]">Help us provide relief to disaster victims with your generous contribution</p>
+        </div>
+      </div>
 
+      <div className="container mx-auto px-4 max-w-2xl">
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-            {error}
+          <div className="bg-red-100 border-l-4 border-red-500 text-red-700 px-6 py-4 rounded-lg mb-6 shadow-md">
+            <p className="font-semibold">Error</p>
+            <p>{error}</p>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-8 space-y-6">
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-8 space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
               Donation Amount (PKR) *
             </label>
-            <input
-              type="number"
-              required
-              min="1"
-              step="0.01"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter amount in PKR"
-            />
+            <div className="relative">
+              <span className="absolute left-4 top-3 text-2xl text-[#4988C4]">₨</span>
+              <input
+                type="number"
+                required
+                min="1"
+                step="0.01"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 border-2 border-[#EBF4DD] rounded-lg focus:outline-none focus:border-[#4988C4] focus:ring-2 focus:ring-[#4988C4] focus:ring-opacity-20 text-lg"
+                placeholder="Enter amount in PKR"
+              />
+            </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
               Donation Type *
             </label>
             <select
@@ -116,23 +126,23 @@ const DonateMoney = () => {
                 setDonationType(e.target.value);
                 setSelectedDisaster('');
               }}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border-2 border-[#EBF4DD] rounded-lg focus:outline-none focus:border-[#4988C4] focus:ring-2 focus:ring-[#4988C4] focus:ring-opacity-20"
             >
-              <option value="general">General Fund</option>
+              <option value="general">General Relief Fund</option>
               <option value="specific">Specific Disaster</option>
             </select>
           </div>
 
           {donationType === 'specific' && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
                 Select Disaster *
               </label>
               <select
                 required
                 value={selectedDisaster}
                 onChange={(e) => setSelectedDisaster(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border-2 border-[#EBF4DD] rounded-lg focus:outline-none focus:border-[#4988C4] focus:ring-2 focus:ring-[#4988C4] focus:ring-opacity-20"
               >
                 <option value="">-- Choose a disaster --</option>
                 {disasters.map((disaster) => (
@@ -142,38 +152,51 @@ const DonateMoney = () => {
                 ))}
               </select>
               {disasters.length === 0 && (
-                <p className="text-sm text-gray-500 mt-2">Loading disasters...</p>
+                <p className="text-sm text-[#296374] mt-2">Loading disasters...</p>
               )}
             </div>
           )}
 
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <h3 className="font-semibold text-blue-900 mb-2">Donation Summary</h3>
-            <p className="text-blue-800">
-              Amount: <strong>PKR {amount || '0'}</strong>
-            </p>
-            <p className="text-blue-800">
-              Type: <strong>{donationType === 'general' ? 'General Fund' : 'Specific Disaster'}</strong>
-            </p>
+          <div className="bg-[#EDEDCE] border-2 border-[#4988C4] rounded-xl p-6">
+            <h3 className="font-bold text-[#0F2854] mb-4 text-lg">Donation Summary</h3>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-[#296374] font-semibold">Amount:</span>
+                <span className="text-2xl font-bold text-[#4988C4]">₨{amount || '0'}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-[#296374] font-semibold">Type:</span>
+                <span className="px-3 py-1 bg-[#4988C4] text-white rounded-full text-sm font-semibold">
+                  {donationType === 'general' ? 'General Fund' : 'Specific Disaster'}
+                </span>
+              </div>
+            </div>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 pt-4">
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition disabled:bg-gray-400"
+              className="flex-1 bg-[#4988C4] text-white py-3 rounded-lg hover:shadow-lg transform hover:scale-105 transition duration-300 font-bold uppercase tracking-wide disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
               {loading ? 'Processing...' : 'Confirm Donation'}
             </button>
             <button
               type="button"
               onClick={() => navigate('/donor/dashboard')}
-              className="flex-1 bg-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-400 transition"
+              className="flex-1 bg-[#296374] text-white py-3 rounded-lg hover:shadow-lg hover:bg-[#5A7863] transition duration-300 font-bold uppercase tracking-wide"
             >
               Cancel
             </button>
           </div>
         </form>
+
+        {/* Info Box */}
+        <div className="mt-8 bg-[#EBF4DD] rounded-xl p-6 border-l-4 border-[#4988C4]">
+          <p className="text-[#3B4953] text-sm">
+            <span className="font-bold">Tip:</span> Your donation is secure and will be used to provide immediate relief to disaster-affected communities.
+          </p>
+        </div>
       </div>
     </div>
   );
