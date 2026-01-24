@@ -23,6 +23,15 @@ export default {
         'donor-bright': '#4988C4',
         'donor-pale': '#BDE8F5',
       },
+      animation: {
+        'marquee': 'marquee 15s linear infinite',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+      },
     },
   },
   plugins: [],

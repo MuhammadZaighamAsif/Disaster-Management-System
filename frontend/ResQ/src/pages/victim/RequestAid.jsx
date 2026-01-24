@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import {  faArrowLeft, faHandHoldingHeart, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 const RequestAid = () => {
   const navigate = useNavigate();
@@ -86,36 +86,49 @@ const RequestAid = () => {
       setLoading(false);
     }
   };
-
-  const checkLimitExceeded = () => {
-    if (!formData.amount || !limitInfo) return false;
-    return parseFloat(formData.amount) > limitInfo.limit;
-  };
-
+  
   return (
-    <div className="min-h-screen bg-linear-to-br from-[#EBF4DD] to-[#F5F7F3] py-8">
-      <div className="container mx-auto px-4 max-w-3xl">
-        <h1 className="text-5xl font-bold mb-2 text-[#0F2854]">Request Aid</h1>
-        <p className="text-[#296374] mb-8">Fill out the form below to request assistance</p>
+    <div className="min-h-screen bg-[#0a1628] py-8">
+      <div className="container mx-auto px-4 max-w-8xl">
+        {/* Header Card */}
+        <div className="bg-[#0F2854]/60 backdrop-blur-md rounded-2xl p-8 mb-8 text-white border border-[#4988C4]/30 shadow-lg">
+          <div className="flex items-center justify-between">
+            <div>
+              {/* Back Button */}
+              <button
+                onClick={() => navigate('/victim/dashboard')}
+                className="text-gray-400 hover:text-white mb-4 flex items-center gap-2 transition-colors"
+              >
+                <FontAwesomeIcon icon={faArrowLeft} />
+                <span>Back to Dashboard</span>
+              </button>
+              <h1 className="text-3xl font-bold mb-2 text-white">Request Aid</h1>
+              <p className="text-gray-300 text-lg">Fill out the form below to request assistance</p>
+            </div>
+            <div className="text-7xl text-[#4988C4]/30">
+              <FontAwesomeIcon icon={faHandHoldingHeart} />
+            </div>
+          </div>
+        </div>
 
         {error && (
-          <div className="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-4 rounded-lg mb-6 shadow-md">
+          <div className="bg-red-500/20 border border-red-500/30 text-red-400 px-6 py-4 rounded-xl mb-6 backdrop-blur-md">
             <p className="font-semibold">Error</p>
             <p className="text-sm mt-1">{error}</p>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-8 space-y-6">
+        <form onSubmit={handleSubmit} className="bg-[#0F2854]/60 backdrop-blur-md rounded-2xl shadow-lg p-8 space-y-6 border border-[#4988C4]/30">
           {/* Aid Type and Amount */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
+              <label className="block text-sm font-semibold text-gray-300 mb-3 uppercase tracking-wide">
                 Type of Aid Needed *
               </label>
               <select
                 value={formData.aidType}
                 onChange={(e) => setFormData({ ...formData, aidType: e.target.value })}
-                className="w-full px-4 py-3 border-2 border-[#EBF4DD] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] focus:ring-opacity-20 transition"
+                className="w-full px-4 py-3 pr-10 border border-[#4988C4]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#0a1628] text-white transition"
               >
                 {aidTypes.map((aid) => (
                   <option key={aid.value} value={aid.value}>
@@ -126,7 +139,7 @@ const RequestAid = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
+              <label className="block text-sm font-semibold text-gray-300 mb-3 uppercase tracking-wide">
                 Amount/Quantity *
               </label>
               <input
@@ -135,11 +148,11 @@ const RequestAid = () => {
                 min="1"
                 value={formData.amount}
                 onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-                className="w-full px-4 py-3 border-2 border-[#EBF4DD] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] focus:ring-opacity-20 transition"
+                className="w-full px-4 py-3 border border-[#4988C4]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#0a1628] text-white placeholder-gray-500 transition"
                 placeholder="Enter amount"
               />
               {limitInfo && (
-                <p className="text-xs text-[#296374] mt-2">
+                <p className="text-xs text-gray-400 mt-2">
                   Reference limit: {limitInfo.limit} units (all requests require admin approval)
                 </p>
               )}
@@ -147,11 +160,11 @@ const RequestAid = () => {
           </div>
 
           {/* Family Information */}
-          <div className="border-t-2 border-[#EBF4DD] pt-6">
-            <h3 className="text-lg font-bold text-[#0F2854] mb-4">👨‍👩‍👧‍👦 Family Information</h3>
+          <div className="border-t border-[#4988C4]/30 pt-6">
+            <h3 className="text-lg font-bold text-white mb-4">👨‍👩‍👧‍👦 Family Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               <div>
-                <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
+                <label className="block text-sm font-semibold text-gray-300 mb-3 uppercase tracking-wide">
                   Family Size *
                 </label>
                 <input
@@ -160,13 +173,13 @@ const RequestAid = () => {
                   min="1"
                   value={formData.familySize}
                   onChange={(e) => setFormData({ ...formData, familySize: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#EBF4DD] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] focus:ring-opacity-20 transition"
+                  className="w-full px-4 py-3 border border-[#4988C4]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#0a1628] text-white placeholder-gray-500 transition"
                   placeholder="Total members"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
+                <label className="block text-sm font-semibold text-gray-300 mb-3 uppercase tracking-wide">
                   Children (under 18)
                 </label>
                 <input
@@ -174,13 +187,13 @@ const RequestAid = () => {
                   min="0"
                   value={formData.childrenCount}
                   onChange={(e) => setFormData({ ...formData, childrenCount: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#EBF4DD] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] focus:ring-opacity-20 transition"
+                  className="w-full px-4 py-3 border border-[#4988C4]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#0a1628] text-white placeholder-gray-500 transition"
                   placeholder="0"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
+                <label className="block text-sm font-semibold text-gray-300 mb-3 uppercase tracking-wide">
                   Elders (60+)
                 </label>
                 <input
@@ -188,7 +201,7 @@ const RequestAid = () => {
                   min="0"
                   value={formData.eldersCount}
                   onChange={(e) => setFormData({ ...formData, eldersCount: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#EBF4DD] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] focus:ring-opacity-20 transition"
+                  className="w-full px-4 py-3 border border-[#4988C4]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#0a1628] text-white placeholder-gray-500 transition"
                   placeholder="0"
                 />
               </div>
@@ -196,11 +209,11 @@ const RequestAid = () => {
           </div>
 
           {/* Contact Information */}
-          <div className="border-t-2 border-[#EBF4DD] pt-6">
-            <h3 className="text-lg font-bold text-[#0F2854] mb-4">📞 Contact Information</h3>
+          <div className="border-t border-[#4988C4]/30 pt-6">
+            <h3 className="text-lg font-bold text-white mb-4">📞 Contact Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
-                <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
+                <label className="block text-sm font-semibold text-gray-300 mb-3 uppercase tracking-wide">
                   Contact Phone *
                 </label>
                 <input
@@ -208,19 +221,19 @@ const RequestAid = () => {
                   required
                   value={formData.contactPhone}
                   onChange={(e) => setFormData({ ...formData, contactPhone: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#EBF4DD] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] focus:ring-opacity-20 transition"
+                  className="w-full px-4 py-3 border border-[#4988C4]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#0a1628] text-white placeholder-gray-500 transition"
                   placeholder="+92-XXX-XXXXXXX"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
+                <label className="block text-sm font-semibold text-gray-300 mb-3 uppercase tracking-wide">
                   Urgency Level
                 </label>
                 <select
                   value={formData.urgency}
                   onChange={(e) => setFormData({ ...formData, urgency: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#EBF4DD] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] focus:ring-opacity-20 transition"
+                  className="w-full px-4 py-3 pr-10 border border-[#4988C4]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#0a1628] text-white transition"
                 >
                   <option value="low">Low</option>
                   <option value="medium">Medium</option>
@@ -231,7 +244,7 @@ const RequestAid = () => {
             </div>
 
             <div className="mt-5">
-              <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
+              <label className="block text-sm font-semibold text-gray-300 mb-3 uppercase tracking-wide">
                 Address *
               </label>
               <textarea
@@ -239,7 +252,7 @@ const RequestAid = () => {
                 rows="3"
                 value={formData.address}
                 onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                className="w-full px-4 py-3 border-2 border-[#EBF4DD] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] focus:ring-opacity-20 transition"
+                className="w-full px-4 py-3 border border-[#4988C4]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#0a1628] text-white placeholder-gray-500 transition"
                 placeholder="Enter your complete address"
               />
             </div>
@@ -247,22 +260,25 @@ const RequestAid = () => {
 
           {/* Special Needs */}
           <div>
-            <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
+            <label className="block text-sm font-semibold text-gray-300 mb-3 uppercase tracking-wide">
               Special Needs or Additional Information
             </label>
             <textarea
               rows="3"
               value={formData.specialNeeds}
               onChange={(e) => setFormData({ ...formData, specialNeeds: e.target.value })}
-              className="w-full px-4 py-3 border-2 border-[#EBF4DD] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] focus:ring-opacity-20 transition"
+              className="w-full px-4 py-3 border border-[#4988C4]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#0a1628] text-white placeholder-gray-500 transition"
               placeholder="Any medical conditions, disabilities, or special requirements..."
             />
           </div>
 
           {/* Info Message */}
-          <div className="bg-[#EBF4DD] border-l-4 border-[#4988C4] rounded-lg p-5">
-            <h3 className="font-bold text-[#0F2854] mb-3">ℹ️ How Your Request Will Be Processed</h3>
-            <ul className="text-[#296374] text-sm space-y-2">
+          <div className="bg-[#0a1628] border border-[#629FAD]/30 rounded-xl p-5">
+            <h3 className="font-bold text-white mb-3 flex items-center">
+              <FontAwesomeIcon icon={faInfoCircle} className="text-[#629FAD] mr-2" />
+              How Your Request Will Be Processed
+            </h3>
+            <ul className="text-gray-300 text-sm space-y-2 list-disc list-inside">
               <li>Your aid request will be reviewed by the admin</li>
               <li>If approved, you will receive the aid</li>
               <li>If rejected, you will be notified with a reason</li>
@@ -272,18 +288,18 @@ const RequestAid = () => {
 
           <div className="flex gap-4">
             <button
-              type="submit"
-              disabled={loading}
-              className="flex-1 bg-linear-to-r from-[#4988C4] to-[#629FAD] text-white py-3 rounded-lg hover:shadow-lg transform hover:scale-105 transition duration-300 font-bold uppercase tracking-wide disabled:bg-gray-400 disabled:cursor-not-allowed disabled:transform-none"
-            >
-              {loading ? 'Submitting...' : 'Submit Request'}
-            </button>
-            <button
               type="button"
               onClick={() => navigate('/victim/dashboard')}
-              className="flex-1 bg-[#EBF4DD] text-[#0F2854] py-3 rounded-lg hover:bg-[#EDEDCE] transition font-bold uppercase tracking-wide border-2 border-[#0F2854]"
+              className="flex-1 border-2 border-[#4988C4]/50 text-[#4988C4] py-3 rounded-lg hover:bg-[#4988C4]/20 transition duration-300 font-bold uppercase tracking-wide"
             >
               Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="flex-1 bg-[#4988C4] text-white py-3 rounded-lg hover:bg-[#3a6fa0] hover:shadow-lg transition duration-300 font-bold uppercase tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'Submitting...' : 'Submit Request'}
             </button>
           </div>
         </form>

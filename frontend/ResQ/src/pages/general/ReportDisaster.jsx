@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTriangleExclamation, faInfoCircle, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import {
   getDisasterNameError,
   getLocationError,
@@ -22,7 +24,7 @@ const ReportDisaster = () => {
     description: '',
     requiredResources: ''
   });
-  
+
   const [errors, setErrors] = useState({
     name: '',
     location: '',
@@ -30,14 +32,14 @@ const ReportDisaster = () => {
     areaCode: '',
     description: ''
   });
-  
+
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    
+
     // Real-time validation
     if (name === 'name') {
       setErrors(prev => ({ ...prev, name: getDisasterNameError(value) }));
@@ -67,13 +69,13 @@ const ReportDisaster = () => {
 
     // Validate all required fields
     const validationErrors = validateReportDisasterForm(formData);
-    
+
     if (formData.areaCode && !validateAreaCode(formData.areaCode)) {
       validationErrors.areaCode = 'Area code must be 5 digits';
     }
-    
+
     setErrors(validationErrors);
-    
+
     if (hasErrors(validationErrors)) {
       setError('Please fix all validation errors before submitting');
       return;
@@ -108,27 +110,49 @@ const ReportDisaster = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#EBF4DD] py-8">
-      <div className="container mx-auto px-4 max-w-3xl">
-        <div className="bg-[#0F2854] text-white px-8 py-8 rounded-2xl shadow-xl mb-8">
-          <h1 className="text-4xl font-bold">Report Disaster</h1>
-          <p className="text-[#BDE8F5] mt-2">Help us respond faster by reporting emergencies</p>
+    <div className="min-h-screen bg-[#0a1628] py-8">
+      <div className="container mx-auto px-4 max-w-8xl">
+        {/* Header Card */}
+        <div className="bg-[#0F2854]/60 backdrop-blur-md rounded-2xl p-8 mb-8 text-white border border-red-500/30 shadow-lg">
+          <div className="flex items-center justify-between">
+            <div>
+              {/* Back Button */}
+              <button
+                onClick={() => navigate('/donor/dashboard')}
+                className="text-gray-400 hover:text-white mb-4 flex items-center gap-2 transition-colors"
+              >
+                <FontAwesomeIcon icon={faArrowLeft} />
+                <span>Back to Dashboard</span>
+              </button>
+              <h1 className="text-3xl font-bold mb-2 text-white">Report Disaster</h1>
+              <p className="text-gray-300 text-lg">Help us respond faster by reporting emergencies</p>
+            </div>
+            <div className="text-7xl text-red-500/30">
+              <FontAwesomeIcon icon={faTriangleExclamation} />
+            </div>
+          </div>
         </div>
 
-        <div className="bg-[#90AB8B] bg-opacity-20 border-2 border-[#90AB8B] text-[#3B4953] px-6 py-4 rounded-xl mb-6 shadow-md">
-          <p className="font-semibold text-lg">Note:</p>
-          <p className="mt-2">Your report will be reviewed by an admin before being added to the system.</p>
+        {/* Info Note */}
+        <div className="bg-[#0F2854]/60 backdrop-blur-md border border-[#629FAD]/30 text-gray-300 px-6 py-4 rounded-xl mb-6 shadow-lg">
+          <div className="flex items-start gap-3">
+            <FontAwesomeIcon icon={faInfoCircle} className="text-[#629FAD] text-xl mt-0.5" />
+            <div>
+              <p className="font-semibold text-white">Note:</p>
+              <p className="mt-1 text-gray-400">Your report will be reviewed by an admin before being added to the system.</p>
+            </div>
+          </div>
         </div>
 
         {error && (
-          <div className="bg-red-100 border-2 border-red-400 text-red-700 px-6 py-4 rounded-lg mb-4 font-semibold shadow-md">
+          <div className="bg-red-500/20 border border-red-500/30 text-red-400 px-6 py-4 rounded-xl mb-6 backdrop-blur-md font-semibold">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-8 space-y-6 border border-[#EDEDCE]">
+        <form onSubmit={handleSubmit} className="bg-[#0F2854]/60 backdrop-blur-md rounded-2xl shadow-lg p-8 space-y-6 border border-[#4988C4]/30">
           <div>
-            <label className="block text-sm  text-[#0F2854] mb-2 font-semibold">
+            <label className="block text-sm text-gray-300 mb-2 font-semibold">
               Disaster Name *
             </label>
             <input
@@ -136,23 +160,22 @@ const ReportDisaster = () => {
               name="name"
               value={formData.name}
               onChange={handleInputChange}
-              className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition duration-300 bg-[#EBF4DD] text-[#3B4953] placeholder-[#5A7863] ${
-                errors.name ? 'border-red-500 focus:ring-red-400' : 'border-[#90AB8B] focus:ring-[#4988C4]'
-              }`}
+              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition duration-300 bg-[#0a1628] text-white placeholder-gray-500 ${errors.name ? 'border-red-500 focus:ring-red-400' : 'border-[#4988C4]/30 focus:ring-[#4988C4]'
+                }`}
               placeholder="e.g., Flood in Islamabad"
             />
-            {errors.name && <p className="text-red-600 text-xs mt-2 font-semibold">{errors.name}</p>}
+            {errors.name && <p className="text-red-400 text-xs mt-2 font-semibold">{errors.name}</p>}
           </div>
 
           <div>
-            <label className="block text-sm  text-[#0F2854] mb-2 font-semibold">
+            <label className="block text-sm text-gray-300 mb-2 font-semibold">
               Disaster Type *
             </label>
             <select
               name="type"
               value={formData.type}
               onChange={handleSelectChange}
-              className="w-full px-4 py-3 border-2 border-[#90AB8B] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#EBF4DD] text-[#3B4953] font-medium transition duration-300"
+              className="w-full px-4 py-3 border border-[#4988C4]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#0a1628] text-white font-medium transition duration-300"
             >
               <option value="EARTHQUAKE">Earthquake</option>
               <option value="FLOOD">Flood</option>
@@ -167,7 +190,7 @@ const ReportDisaster = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm  text-[#0F2854] mb-2 font-semibold">
+              <label className="block text-sm text-gray-300 mb-2 font-semibold">
                 Location/Address *
               </label>
               <input
@@ -175,16 +198,15 @@ const ReportDisaster = () => {
                 name="location"
                 value={formData.location}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition duration-300 bg-[#EBF4DD] text-[#3B4953] placeholder-[#5A7863] ${
-                  errors.location ? 'border-red-500 focus:ring-red-400' : 'border-[#90AB8B] focus:ring-[#4988C4]'
-                }`}
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition duration-300 bg-[#0a1628] text-white placeholder-gray-500 ${errors.location ? 'border-red-500 focus:ring-red-400' : 'border-[#4988C4]/30 focus:ring-[#4988C4]'
+                  }`}
                 placeholder="Specific location"
               />
-              {errors.location && <p className="text-red-600 text-xs mt-2 font-semibold">{errors.location}</p>}
+              {errors.location && <p className="text-red-400 text-xs mt-2 font-semibold">{errors.location}</p>}
             </div>
 
             <div>
-              <label className="block text-sm  text-[#0F2854] mb-2 font-semibold">
+              <label className="block text-sm text-gray-300 mb-2 font-semibold">
                 City *
               </label>
               <input
@@ -192,18 +214,17 @@ const ReportDisaster = () => {
                 name="city"
                 value={formData.city}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition duration-300 bg-[#EBF4DD] text-[#3B4953] placeholder-[#5A7863] ${
-                  errors.city ? 'border-red-500 focus:ring-red-400' : 'border-[#90AB8B] focus:ring-[#4988C4]'
-                }`}
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition duration-300 bg-[#0a1628] text-white placeholder-gray-500 ${errors.city ? 'border-red-500 focus:ring-red-400' : 'border-[#4988C4]/30 focus:ring-[#4988C4]'
+                  }`}
                 placeholder="e.g., Islamabad"
               />
-              {errors.city && <p className="text-red-600 text-xs mt-2 font-semibold">{errors.city}</p>}
+              {errors.city && <p className="text-red-400 text-xs mt-2 font-semibold">{errors.city}</p>}
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm  text-[#0F2854] mb-2 font-semibold">
+              <label className="block text-sm text-gray-300 mb-2 font-semibold">
                 Area Code *
               </label>
               <input
@@ -211,23 +232,22 @@ const ReportDisaster = () => {
                 name="areaCode"
                 value={formData.areaCode}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition duration-300 bg-[#EBF4DD] text-[#3B4953] placeholder-[#5A7863] ${
-                  errors.areaCode ? 'border-red-500 focus:ring-red-400' : 'border-[#90AB8B] focus:ring-[#4988C4]'
-                }`}
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition duration-300 bg-[#0a1628] text-white placeholder-gray-500 ${errors.areaCode ? 'border-red-500 focus:ring-red-400' : 'border-[#4988C4]/30 focus:ring-[#4988C4]'
+                  }`}
                 placeholder="e.g., 44000"
               />
-              {errors.areaCode && <p className="text-red-600 text-xs mt-2 font-semibold">{errors.areaCode}</p>}
+              {errors.areaCode && <p className="text-red-400 text-xs mt-2 font-semibold">{errors.areaCode}</p>}
             </div>
 
             <div>
-              <label className="block text-sm 854] mb-2 font-semibold">
+              <label className="block text-sm text-gray-300 mb-2 font-semibold">
                 Severity *
               </label>
               <select
                 name="severity"
                 value={formData.severity}
                 onChange={handleSelectChange}
-                className="w-full px-4 py-3 border-2 border-[#90AB8B] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#EBF4DD] text-[#3B4953] font-medium transition duration-300"
+                className="w-full px-4 py-3 border border-[#4988C4]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#0a1628] text-white font-medium transition duration-300"
               >
                 <option value="LOW">Low</option>
                 <option value="MEDIUM">Medium</option>
@@ -238,7 +258,7 @@ const ReportDisaster = () => {
           </div>
 
           <div>
-            <label className="block text-sm  text-[#0F2854] mb-2 font-semibold">
+            <label className="block text-sm text-gray-300 mb-2 font-semibold">
               Description *
             </label>
             <textarea
@@ -246,16 +266,15 @@ const ReportDisaster = () => {
               rows="4"
               value={formData.description}
               onChange={handleInputChange}
-              className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition duration-300 bg-[#EBF4DD] text-[#3B4953] placeholder-[#5A7863] ${
-                errors.description ? 'border-red-500 focus:ring-red-400' : 'border-[#90AB8B] focus:ring-[#4988C4]'
-              }`}
+              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition duration-300 bg-[#0a1628] text-white placeholder-gray-500 ${errors.description ? 'border-red-500 focus:ring-red-400' : 'border-[#4988C4]/30 focus:ring-[#4988C4]'
+                }`}
               placeholder="Describe the disaster situation in detail..."
             />
-            {errors.description && <p className="text-red-600 text-xs mt-2 font-semibold">{errors.description}</p>}
+            {errors.description && <p className="text-red-400 text-xs mt-2 font-semibold">{errors.description}</p>}
           </div>
 
           <div>
-            <label className="block text-sm  text-[#0F2854] mb-2 font-semibold">
+            <label className="block text-sm text-gray-300 mb-2 font-semibold">
               Required Resources
             </label>
             <textarea
@@ -263,7 +282,7 @@ const ReportDisaster = () => {
               rows="3"
               value={formData.requiredResources}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border-2 border-[#90AB8B] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#EBF4DD] text-[#3B4953] placeholder-[#5A7863] transition duration-300"
+              className="w-full px-4 py-3 border border-[#4988C4]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#0a1628] text-white placeholder-gray-500 transition duration-300"
               placeholder="What resources are needed? (food, shelter, medical supplies, etc.)"
             />
           </div>
@@ -272,14 +291,14 @@ const ReportDisaster = () => {
             <button
               type="submit"
               disabled={loading || hasErrors(errors)}
-              className="flex-1 bg-[#4988C4] text-white py-3 rounded-lg hover:bg-[#1C4D8D] transition duration-300 hover:scale-105 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:scale-100 font-semibold shadow-md"
+              className="flex-1 bg-[#4988C4] text-white py-3 rounded-lg hover:bg-[#296374] transition duration-300 transform hover:scale-[1.02] disabled:bg-gray-600 disabled:cursor-not-allowed disabled:scale-100 font-semibold shadow-lg"
             >
               {loading ? 'Submitting...' : 'Submit Report'}
             </button>
             <button
               type="button"
               onClick={() => navigate(-1)}
-              className="flex-1 bg-[#90AB8B] text-white py-3 rounded-lg hover:bg-[#5A7863] transition duration-300 hover:scale-105 font-semibold shadow-md"
+              className="flex-1 bg-[#0F2854]/60 border border-[#629FAD]/30 text-white py-3 rounded-lg hover:bg-[#629FAD]/20 transition duration-300 transform hover:scale-[1.02] font-semibold shadow-lg"
             >
               ✕ Cancel
             </button>

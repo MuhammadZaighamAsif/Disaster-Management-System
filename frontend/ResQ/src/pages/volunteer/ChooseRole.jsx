@@ -1,5 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faBullseye, 
+  faArrowLeft, 
+  faUserNurse, 
+  faUserShield, 
+  faExclamationTriangle, 
+  faCheckCircle, 
+  faSpinner,
+  faClock,
+  faTools,
+  faBriefcase,
+  faLaptop,
+  faHandsHelping
+} from '@fortawesome/free-solid-svg-icons';
 
 const ChooseRole = () => {
   const navigate = useNavigate();
@@ -11,6 +26,7 @@ const ChooseRole = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [profile, setProfile] = useState(null);
   const [hasActiveTasks, setHasActiveTasks] = useState(false);
   const [loadingProfile, setLoadingProfile] = useState(true);
@@ -73,6 +89,7 @@ const ChooseRole = () => {
     }
 
     setError('');
+    setSuccess('');
     setLoading(true);
 
     try {
@@ -94,8 +111,10 @@ const ChooseRole = () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert('Role selection saved successfully!');
-        navigate('/volunteer/dashboard');
+        setSuccess('Role selection saved successfully!');
+        setTimeout(() => {
+          navigate('/volunteer/dashboard');
+        }, 1500);
       } else {
         setError(result.message || 'Failed to save role selection');
       }
@@ -109,50 +128,110 @@ const ChooseRole = () => {
 
   if (loadingProfile) {
     return (
-      <div className="min-h-screen bg-[#EBF4DD] py-8 flex items-center justify-center">
-        <div className="text-xl text-[#296374]">Loading...</div>
+      <div className="min-h-screen bg-[#0a1628] flex items-center justify-center">
+        <div className="text-center">
+          <FontAwesomeIcon icon={faSpinner} className="text-4xl text-[#4988C4] animate-spin mb-4" />
+          <p className="text-gray-400 text-lg">Loading your profile...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#EBF4DD]">
-      {/* Header Section */}
-      <div className="bg-[#0F2854] text-white py-12 px-4 mb-12 shadow-lg">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold text-white mb-2">Choose Your Volunteer Role</h1>
-          <p className="text-[#BDE8F5]">Select whether you'll work on-field or off-field</p>
+    <div className="min-h-screen bg-[#0a1628] py-8">
+      <div className="container mx-auto px-4">
+        {/* Header Card */}
+        <div className="bg-[#0F2854]/60 backdrop-blur-md rounded-2xl p-8 mb-8 text-white border border-[#629FAD]/30 shadow-lg">
+          <div className="flex items-center justify-between">
+            <div>
+              <button 
+                onClick={() => navigate('/volunteer/dashboard')}
+                className="text-gray-400 hover:text-white mb-4 flex items-center gap-2 transition-colors"
+              >
+                <FontAwesomeIcon icon={faArrowLeft} />
+                <span>Back to Dashboard</span>
+              </button>
+              <h1 className="text-3xl font-bold mb-2 text-white">Choose Your Role</h1>
+              <p className="text-gray-300 text-lg">Select whether you'll work on-field or off-field</p>
+            </div>
+            <div className="text-7xl text-[#629FAD]/30 hidden md:block">
+              <FontAwesomeIcon icon={faBullseye} />
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div className="container mx-auto px-4 max-w-3xl mb-12">
+        {/* Current Role Display */}
         {profile?.volunteerRole && (
-          <div className="bg-[#4988C4] border-l-4 border-[#1C4D8D] text-white px-6 py-4 rounded-lg mb-6 shadow-md">
-            <p className="font-semibold text-lg">Current Role: {profile.volunteerRole === 'ON-FIELD' ? 'On-Field Volunteer' : 'Off-Field Volunteer'}</p>
+          <div className="bg-[#4988C4]/20 backdrop-blur-md rounded-2xl p-6 mb-6 border border-[#4988C4]/40 shadow-lg">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-[#4988C4]/30 rounded-xl flex items-center justify-center">
+                <FontAwesomeIcon 
+                  icon={profile.volunteerRole === 'ON-FIELD' ? faUserNurse : faUserShield} 
+                  className="text-2xl text-[#4988C4]" 
+                />
+              </div>
+              <div>
+                <p className="text-gray-400 text-sm font-medium uppercase tracking-wider">Current Role</p>
+                <p className="text-xl font-bold text-white">
+                  {profile.volunteerRole === 'ON-FIELD' ? 'On-Field Volunteer' : 'Off-Field Volunteer'}
+                </p>
+              </div>
+              <FontAwesomeIcon icon={faCheckCircle} className="text-green-400 text-xl ml-auto" />
+            </div>
           </div>
         )}
 
+        {/* Active Tasks Warning */}
         {hasActiveTasks && (
-          <div className="bg-orange-100 border-l-4 border-orange-600 text-orange-800 px-6 py-4 rounded-lg mb-6 shadow-md">
-            <p className="font-semibold text-lg">⚠️ You have active tasks</p>
-            <p className="text-sm mt-1">You cannot change your role while you have active tasks. Please complete or cancel them first.</p>
+          <div className="bg-orange-500/20 backdrop-blur-md rounded-2xl p-6 mb-6 border border-orange-500/40 shadow-lg">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 bg-orange-500/30 rounded-xl flex items-center justify-center shrink-0">
+                <FontAwesomeIcon icon={faExclamationTriangle} className="text-2xl text-orange-400" />
+              </div>
+              <div>
+                <p className="text-orange-300 font-bold text-lg">You have active tasks</p>
+                <p className="text-orange-200/80 text-sm mt-1">
+                  You cannot change your role while you have active tasks. Please complete or cancel them first.
+                </p>
+              </div>
+            </div>
           </div>
         )}
 
+        {/* Error Message */}
         {error && (
-          <div className="bg-red-100 border-l-4 border-red-600 text-red-800 px-6 py-4 rounded-lg mb-6 shadow-md">
-            {error}
+          <div className="bg-red-500/20 backdrop-blur-md rounded-2xl p-6 mb-6 border border-red-500/40 shadow-lg">
+            <div className="flex items-center gap-4">
+              <FontAwesomeIcon icon={faExclamationTriangle} className="text-2xl text-red-400" />
+              <p className="text-red-300 font-medium">{error}</p>
+            </div>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-10 space-y-6">
-          <div>
-            <label className="block text-sm  text-[#0F2854] mb-4 font-semibold">
-              Select Your Role 👷 *
-            </label>
-            <div className="space-y-3">
-              <label className="flex items-center p-5 border-2 rounded-xl cursor-pointer transition transform hover:scale-102" 
-                     style={{ borderColor: selectedRole === 'on-field' ? '#4988C4' : '#D1D5DB', backgroundColor: selectedRole === 'on-field' ? '#EBF9FF' : 'white' }}>
+        {/* Success Message */}
+        {success && (
+          <div className="bg-green-500/20 backdrop-blur-md rounded-2xl p-6 mb-6 border border-green-500/40 shadow-lg">
+            <div className="flex items-center gap-4">
+              <FontAwesomeIcon icon={faCheckCircle} className="text-2xl text-green-400" />
+              <p className="text-green-300 font-medium">{success}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Main Form */}
+        <form onSubmit={handleSubmit}>
+          {/* Role Selection */}
+          <div className="bg-[#0F2854]/60 backdrop-blur-md rounded-2xl p-8 mb-6 border border-[#629FAD]/30 shadow-lg">
+            <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+              <FontAwesomeIcon icon={faHandsHelping} className="text-[#4988C4]" />
+              Select Your Role
+            </h2>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* On-Field Option */}
+              <label 
+                className={`relative cursor-pointer group ${hasActiveTasks ? 'opacity-50 cursor-not-allowed' : ''}`}
+              >
                 <input
                   type="radio"
                   name="role"
@@ -160,16 +239,44 @@ const ChooseRole = () => {
                   checked={selectedRole === 'on-field'}
                   onChange={(e) => setSelectedRole(e.target.value)}
                   disabled={hasActiveTasks}
-                  className="mr-4 w-5 h-5"
+                  className="sr-only"
                 />
-                <div>
-                  <p className="font-bold text-[#0F2854] text-lg">On-Field Volunteer</p>
-                  <p className="text-sm text-[#296374]">Work directly with affected people and provide assistance on-site</p>
+                <div className={`rounded-2xl p-6 border-2 transition-all duration-300 ${
+                  selectedRole === 'on-field' 
+                    ? 'bg-[#4988C4]/20 border-[#4988C4] shadow-lg shadow-[#4988C4]/20' 
+                    : 'bg-[#0a1628]/50 border-[#629FAD]/30 hover:border-[#4988C4]/50 hover:bg-[#0a1628]/70'
+                }`}>
+                  <div className="flex items-start gap-4">
+                    <div className={`w-14 h-14 rounded-xl flex items-center justify-center transition-colors ${
+                      selectedRole === 'on-field' ? 'bg-[#4988C4]' : 'bg-[#4988C4]/20'
+                    }`}>
+                      <FontAwesomeIcon 
+                        icon={faUserNurse} 
+                        className={`text-2xl ${selectedRole === 'on-field' ? 'text-white' : 'text-[#4988C4]'}`} 
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold text-white mb-1">On-Field Volunteer</h3>
+                      <p className="text-gray-400 text-sm leading-relaxed">
+                        Work directly with affected people and provide assistance on-site during disaster relief operations
+                      </p>
+                    </div>
+                    {selectedRole === 'on-field' && (
+                      <FontAwesomeIcon icon={faCheckCircle} className="text-[#4988C4] text-xl" />
+                    )}
+                  </div>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <span className="px-3 py-1 bg-[#4988C4]/20 text-[#4988C4] text-xs rounded-full">Field Work</span>
+                    <span className="px-3 py-1 bg-[#4988C4]/20 text-[#4988C4] text-xs rounded-full">Direct Aid</span>
+                    <span className="px-3 py-1 bg-[#4988C4]/20 text-[#4988C4] text-xs rounded-full">Rescue</span>
+                  </div>
                 </div>
               </label>
 
-              <label className="flex items-center p-5 border-2 rounded-xl cursor-pointer transition transform hover:scale-102"
-                     style={{ borderColor: selectedRole === 'off-field' ? '#4988C4' : '#D1D5DB', backgroundColor: selectedRole === 'off-field' ? '#EBF9FF' : 'white' }}>
+              {/* Off-Field Option */}
+              <label 
+                className={`relative cursor-pointer group ${hasActiveTasks ? 'opacity-50 cursor-not-allowed' : ''}`}
+              >
                 <input
                   type="radio"
                   name="role"
@@ -177,71 +284,122 @@ const ChooseRole = () => {
                   checked={selectedRole === 'off-field'}
                   onChange={(e) => setSelectedRole(e.target.value)}
                   disabled={hasActiveTasks}
-                  className="mr-4 w-5 h-5"
+                  className="sr-only"
                 />
-                <div>
-                  <p className="font-bold text-[#0F2854] text-lg">💻 Off-Field Volunteer</p>
-                  <p className="text-sm text-[#296374]">Support from administrative centers, coordination, and remote tasks</p>
+                <div className={`rounded-2xl p-6 border-2 transition-all duration-300 ${
+                  selectedRole === 'off-field' 
+                    ? 'bg-[#629FAD]/20 border-[#629FAD] shadow-lg shadow-[#629FAD]/20' 
+                    : 'bg-[#0a1628]/50 border-[#629FAD]/30 hover:border-[#629FAD]/50 hover:bg-[#0a1628]/70'
+                }`}>
+                  <div className="flex items-start gap-4">
+                    <div className={`w-14 h-14 rounded-xl flex items-center justify-center transition-colors ${
+                      selectedRole === 'off-field' ? 'bg-[#629FAD]' : 'bg-[#629FAD]/20'
+                    }`}>
+                      <FontAwesomeIcon 
+                        icon={faLaptop} 
+                        className={`text-2xl ${selectedRole === 'off-field' ? 'text-white' : 'text-[#629FAD]'}`} 
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold text-white mb-1">Off-Field Volunteer</h3>
+                      <p className="text-gray-400 text-sm leading-relaxed">
+                        Support from administrative centers, coordination, logistics, and remote assistance tasks
+                      </p>
+                    </div>
+                    {selectedRole === 'off-field' && (
+                      <FontAwesomeIcon icon={faCheckCircle} className="text-[#629FAD] text-xl" />
+                    )}
+                  </div>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <span className="px-3 py-1 bg-[#629FAD]/20 text-[#629FAD] text-xs rounded-full">Coordination</span>
+                    <span className="px-3 py-1 bg-[#629FAD]/20 text-[#629FAD] text-xs rounded-full">Remote</span>
+                    <span className="px-3 py-1 bg-[#629FAD]/20 text-[#629FAD] text-xs rounded-full">Admin</span>
+                  </div>
                 </div>
               </label>
             </div>
           </div>
 
+          {/* Additional Details - Only show when role is selected */}
           {selectedRole && (
-            <>
-              <div>
-                <label className="block text-sm  text-[#0F2854] mb-2 font-semibold">
-                  Skills
-                </label>
-                <input
-                  type="text"
-                  value={additionalDetails.skills}
-                  onChange={(e) => setAdditionalDetails({ ...additionalDetails, skills: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#90AB8B] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#F9FDFB] text-[#0F2854]"
-                  placeholder="e.g., First Aid, Medical, Logistics"
-                />
+            <div className="bg-[#0F2854]/60 backdrop-blur-md rounded-2xl p-8 mb-6 border border-[#629FAD]/30 shadow-lg animate-fadeIn">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+                <FontAwesomeIcon icon={faBriefcase} className="text-[#4988C4]" />
+                Additional Details
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Skills */}
+                <div>
+                  <label className="flex items-center gap-2 text-sm text-gray-300 mb-3 font-medium">
+                    <FontAwesomeIcon icon={faTools} className="text-[#4988C4]" />
+                    Skills
+                  </label>
+                  <input
+                    type="text"
+                    value={additionalDetails.skills}
+                    onChange={(e) => setAdditionalDetails({ ...additionalDetails, skills: e.target.value })}
+                    className="w-full px-4 py-3 bg-[#0a1628]/70 border border-[#629FAD]/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#4988C4] focus:ring-1 focus:ring-[#4988C4] transition-colors"
+                    placeholder="e.g., First Aid, Medical, Logistics"
+                  />
+                </div>
+
+                {/* Working Hours */}
+                <div>
+                  <label className="flex items-center gap-2 text-sm text-gray-300 mb-3 font-medium">
+                    <FontAwesomeIcon icon={faClock} className="text-[#4988C4]" />
+                    Available Working Hours
+                  </label>
+                  <input
+                    type="text"
+                    value={additionalDetails.workingHours}
+                    onChange={(e) => setAdditionalDetails({ ...additionalDetails, workingHours: e.target.value })}
+                    className="w-full px-4 py-3 bg-[#0a1628]/70 border border-[#629FAD]/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#4988C4] focus:ring-1 focus:ring-[#4988C4] transition-colors"
+                    placeholder="e.g., Full-time, Part-time, Weekends only"
+                  />
+                </div>
               </div>
 
-              <div>
-                <label className="block text-sm  text-[#0F2854] mb-2 font-semibold">
-                  Available Working Hours
-                </label>
-                <input
-                  type="text"
-                  value={additionalDetails.workingHours}
-                  onChange={(e) => setAdditionalDetails({ ...additionalDetails, workingHours: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#90AB8B] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#F9FDFB] text-[#0F2854]"
-                  placeholder="e.g., Full-time, Part-time, Weekends only"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm  text-[#0F2854] mb-2 font-semibold">
-                  📚 Relevant Experience
+              {/* Experience */}
+              <div className="mt-6">
+                <label className="flex items-center gap-2 text-sm text-gray-300 mb-3 font-medium">
+                  <FontAwesomeIcon icon={faBriefcase} className="text-[#4988C4]" />
+                  Relevant Experience
                 </label>
                 <textarea
-                  rows="3"
+                  rows="4"
                   value={additionalDetails.experience}
                   onChange={(e) => setAdditionalDetails({ ...additionalDetails, experience: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#90AB8B] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4988C4] bg-[#F9FDFB] text-[#0F2854]"
-                  placeholder="Describe your relevant experience..."
+                  className="w-full px-4 py-3 bg-[#0a1628]/70 border border-[#629FAD]/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#4988C4] focus:ring-1 focus:ring-[#4988C4] transition-colors resize-none"
+                  placeholder="Describe your relevant experience in disaster relief, volunteering, or related fields..."
                 />
               </div>
-            </>
+            </div>
           )}
 
-          <div className="flex gap-4 pt-6">
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4">
             <button
               type="submit"
               disabled={loading || !selectedRole || hasActiveTasks}
-              className="flex-1 bg-[#4988C4] text-white py-3 rounded-xl hover:bg-[#296374] transition disabled:bg-gray-400 font-bold shadow-md"
+              className="flex-1 bg-linear-to-r from-[#4988C4] to-[#629FAD] text-white py-4 px-6 rounded-xl font-bold text-lg hover:from-[#3a7ab5] hover:to-[#5490a0] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl hover:shadow-[#4988C4]/20 flex items-center justify-center gap-3"
             >
-              {loading ? 'Saving...' : 'Confirm Role Selection'}
+              {loading ? (
+                <>
+                  <FontAwesomeIcon icon={faSpinner} className="animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <FontAwesomeIcon icon={faCheckCircle} />
+                  Confirm Role Selection
+                </>
+              )}
             </button>
             <button
               type="button"
               onClick={() => navigate('/volunteer/dashboard')}
-              className="flex-1 bg-[#EDEDCE] text-[#0F2854] py-3 rounded-xl hover:bg-[#E0E1C7] transition font-bold shadow-md"
+              className="flex-1 sm:flex-none sm:px-8 bg-[#0F2854]/60 text-gray-300 py-4 px-6 rounded-xl font-bold text-lg border border-[#629FAD]/30 hover:bg-[#0F2854] hover:text-white transition-all duration-300"
             >
               Cancel
             </button>

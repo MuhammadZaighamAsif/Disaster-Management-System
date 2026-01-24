@@ -33,7 +33,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-[#0F2854] text-white shadow-lg">
+    <nav className="bg-[#0F2854] text-white shadow-xl border-b border-black ">
       <LogoutConfirmationModal
         isOpen={showLogoutConfirmation}
         onLogoutAndSignup={handleLogoutAndSignup}
@@ -42,19 +42,19 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold text-white">
+          <Link to="/" className="text-4xl font-bold text-white">
             ResQ
           </Link>
 
           {/* Navigation Links */}
           <div className="flex items-center gap-6">
-            <Link to="/search" className="text-[#BDE8F5] hover:text-white transition">
+            <Link to="/search" className="relative text-[#BDE8F5] hover:text-white transition after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#4988C4] after:transition-all after:duration-300 hover:after:w-full">
               Search Disasters
             </Link>
             
             {!user ? (
               <>
-                <Link to="/login" className="text-[#BDE8F5] hover:text-white transition">
+                <Link to="/login" className="relative text-[#BDE8F5] hover:text-white transition after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#4988C4] after:transition-all after:duration-300 hover:after:w-full">
                   Login
                 </Link>
                 <button 
@@ -68,16 +68,16 @@ const Navbar = () => {
               <>
                 <Link 
                   to={`/${user.role}/dashboard`} 
-                  className="text-[#BDE8F5] hover:text-white transition"
+                  className="relative text-[#BDE8F5] hover:text-white transition after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#4988C4] after:transition-all after:duration-300 hover:after:w-full"
                 >
                   Dashboard
                 </Link>
-                <span className="text-sm text-[#BDE8F5]">
+                <span className="text-sm ">
                   {user.name} ({user.role})
                 </span>
                 <button 
                   onClick={handleLogout}
-                  className="bg-[#296374] px-4 py-2 rounded-lg hover:bg-[#5A7863] transition text-white"
+                  className="bg-[#296374] px-4 py-2 rounded-lg hover:bg-red-600 transition text-white "
                 >
                   Logout
                 </button>

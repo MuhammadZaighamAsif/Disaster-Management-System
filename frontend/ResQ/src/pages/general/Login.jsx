@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { getEmailError, getPasswordError, hasErrors } from '../../utils/validation';
+import disasterBg from '../../assets/disaster-bg.jpg';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -84,20 +85,30 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-[#0F2854] via-[#1C4D8D] to-[#4988C4] flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen relative overflow-hidden flex items-center justify-center px-4 py-12">
+      {/* Background Image with Blur */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${disasterBg})`,
+        }}
+      >
+        {/* Dark Overlay with blur effect */}
+        <div className="absolute inset-0 bg-[#0a1628]/85 backdrop-blur-[2px]"></div>
+      </div>
+
+      <div className="relative z-10 w-full max-w-md ">
         {/* Card Container */}
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden transform hover:scale-105 transition duration-300">
-          {/* Header Gradient */}
-          <div className="bg-linear-to-r from-[#0F2854] to-[#4988C4] px-8 py-12 text-center text-white">
-            {/* <div className="text-5xl mb-4"></div> */}
-            <h2 className="text-3xl font-bold">Welcome Back</h2>
-            <p className="text-[#BDE8F5] mt-2">Login to your ResQ account</p>
+        <div className="bg-[#0F2854]/60 backdrop-blur-md rounded-2xl border border-[#4988C4]/30 shadow-2xl overflow-hidden">
+          {/* Header */}
+          <div className="px-8 py-10 text-center border-b border-[#4988C4]/30">
+            <h2 className="text-3xl font-bold text-white">Welcome Back</h2>
+            <p className="text-gray-300 mt-2">Login to your ResQ account</p>
           </div>
 
           <div className="px-8 py-8">
             {error && (
-              <div className="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-4 rounded-lg mb-6 shadow-md">
+              <div className="bg-red-500/20 border-l-4 border-red-500 text-red-200 px-4 py-4 rounded-lg mb-6">
                 <p className="font-semibold">Error</p>
                 <p className="text-sm mt-1">{error}</p>
               </div>
@@ -105,7 +116,7 @@ const Login = () => {
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
+                <label className="block text-sm font-bold text-gray-300 mb-3 uppercase tracking-wide">
                   Email Address
                 </label>
                 <input
@@ -113,16 +124,16 @@ const Login = () => {
                   name="email"
                   value={credentials.email}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${
-                    errors.email ? 'border-red-500 focus:ring-red-400' : 'border-[#EBF4DD] focus:border-[#4988C4] focus:ring-[#4988C4] focus:ring-opacity-20'
+                  className={`w-full px-4 py-3 bg-[#0a1628]/60 border-2 rounded-lg focus:outline-none focus:ring-2 transition text-white placeholder-gray-400 ${
+                    errors.email ? 'border-red-500 focus:ring-red-400' : 'border-[#4988C4]/30 focus:border-[#4988C4] focus:ring-[#4988C4] focus:ring-opacity-20'
                   }`}
                   placeholder="you@example.com"
                 />
-                {errors.email && <p className="text-red-600 text-sm mt-2 font-semibold">⚠️ {errors.email}</p>}
+                {errors.email && <p className="text-red-400 text-sm mt-2 font-semibold">⚠️ {errors.email}</p>}
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-[#0F2854] mb-3 uppercase tracking-wide">
+                <label className="block text-sm font-bold text-gray-300 mb-3 uppercase tracking-wide">
                   Password
                 </label>
                 <div className="relative">
@@ -131,15 +142,15 @@ const Login = () => {
                     name="password"
                     value={credentials.password}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition ${
-                      errors.password ? 'border-red-500 focus:ring-red-400' : 'border-[#EBF4DD] focus:border-[#4988C4] focus:ring-[#4988C4] focus:ring-opacity-20'
+                    className={`w-full px-4 py-3 bg-[#0a1628]/60 border-2 rounded-lg focus:outline-none focus:ring-2 transition text-white placeholder-gray-400 ${
+                      errors.password ? 'border-red-500 focus:ring-red-400' : 'border-[#4988C4]/30 focus:border-[#4988C4] focus:ring-[#4988C4] focus:ring-opacity-20'
                     }`}
                     placeholder="••••••••"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#296374] hover:text-[#0F2854] transition"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#4988C4] transition"
                   >
                     {showPassword ? (
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -153,13 +164,13 @@ const Login = () => {
                     )}
                   </button>
                 </div>
-                {errors.password && <p className="text-red-600 text-sm mt-2 font-semibold">⚠️ {errors.password}</p>}
+                {errors.password && <p className="text-red-400 text-sm mt-2 font-semibold">⚠️ {errors.password}</p>}
               </div>
 
               <button
                 type="submit"
                 disabled={loading || hasErrors(errors)}
-                className="w-full bg-linear-to-r from-[#4988C4] to-[#629FAD] text-white py-3 rounded-lg hover:shadow-lg transform hover:scale-105 transition duration-300 font-bold uppercase tracking-wide disabled:bg-gray-400 disabled:cursor-not-allowed disabled:transform-none"
+                className="w-full bg-[#4988C4] text-white py-3 rounded-lg hover:bg-[#629FAD] hover:shadow-lg transform hover:scale-105 transition-all duration-300 font-bold uppercase tracking-wide disabled:bg-gray-600 disabled:cursor-not-allowed disabled:transform-none border-2 border-[#4988C4] hover:border-[#629FAD]"
               >
                 {loading ? 'Logging in...' : 'Login'}
               </button>
@@ -167,41 +178,27 @@ const Login = () => {
 
             {/* Divider */}
             <div className="my-6 flex items-center">
-              <div className="flex-1 border-t-2 border-[#a7d55d]"></div>
-              <span className="px-3 text-[#296374] text-sm font-semibold">OR</span>
-              <div className="flex-1 border-t-2 border-[#a7d55d]"></div>
+              <div className="flex-1 border-t-2 border-[#4988C4]/30"></div>
+              <span className="px-3 text-gray-400 text-sm font-semibold">OR</span>
+              <div className="flex-1 border-t-2 border-[#4988C4]/30"></div>
             </div>
-
-            {/* Demo Credentials Info */}
-            {/* <div className="bg-[#EBF4DD] rounded-lg p-4 mb-6 border-l-4 border-[#4988C4]">
-              <p className="text-[#0F2854] text-xs font-semibold mb-2">Demo Credentials:</p>
-              <p className="text-[#296374] text-xs">Email: <span className="font-mono font-semibold">admin@resq.com</span></p>
-              <p className="text-[#296374] text-xs">Password: <span className="font-mono font-semibold">Admin@123</span></p>
-            </div> */}
 
             {/* Sign Up Link */}
             <div className="text-center">
-              <p className="text-[#3B4953] text-sm">
+              <p className="text-gray-300 text-sm">
                 Don't have an account?{' '}
-                <Link to="/signup" className="text-[#4988C4] hover:text-[#0F2854] font-bold transition">
+                <Link to="/signup" className="text-[#4988C4] hover:text-[#BDE8F5] font-bold transition underline">
                   Sign Up Here
                 </Link>
-              </p>
-            </div>
-
-            {/* Footer Info */}
-            <div className="mt-6 pt-6 border-t border-[#EBF4DD] text-center">
-              <p className="text-[#296374] text-xs">
-                Secure login powered by ResQ • Your data is encrypted
               </p>
             </div>
           </div>
         </div>
 
         {/* Bottom Info Box */}
-        <div className="mt-6 bg-white bg-opacity-10 backdrop-blur-md rounded-lg p-4 text-black text-center">
+        <div className="mt-6 bg-[#0F2854]/60 backdrop-blur-md rounded-lg p-4 text-gray-300 text-center border border-[#4988C4]/30">
           <p className="text-sm">
-            Having trouble logging in? Contact us at <span className="font-semibold">support@resq.com</span>
+            Having trouble logging in? Contact us at <span className="font-semibold text-[#4988C4]">support@resq.com</span>
           </p>
         </div>
       </div>

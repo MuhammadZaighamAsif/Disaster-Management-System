@@ -46,6 +46,37 @@
   font-size: 12px;
 }
 
+/* Custom Tooltip Styles */
+.custom-tooltip {
+  background-color: #3B82F6 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  color: white !important;
+  font-weight: bold !important;
+  padding: 4px 8px !important;
+  font-size: 12px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.custom-tooltip::before {
+  border-top-color: #3B82F6 !important;
+}
+
+.disaster-tooltip {
+  background-color: #EF4444 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  color: white !important;
+  font-weight: bold !important;
+  padding: 4px 8px !important;
+  font-size: 11px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.disaster-tooltip::before {
+  border-top-color: #EF4444 !important;
+}
+
 /* Ensure responsive map */
 .leaflet-container.leaflet-touch .leaflet-bar a.leaflet-active {
   width: 30px;

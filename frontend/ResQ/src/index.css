@@ -1,5 +1,52 @@
 @import "tailwindcss";
 
+/* Marquee Animation for Stats */
+.stats-marquee-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.stats-marquee-content {
+  display: flex;
+  width: fit-content;
+  animation: stats-scroll 20s linear infinite;
+}
+
+.stat-item {
+  flex-shrink: 0;
+  width: 25%;
+  min-width: 280px;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+@keyframes stats-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pause animation on hover for better UX */
+.stats-marquee-wrapper:hover .stats-marquee-content {
+  animation-play-state: paused;
+}
+
+.animate-marquee {
+  animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 /* Modern Custom Animations */
 @keyframes slideIn {
   from {
@@ -61,8 +108,8 @@
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 5px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -72,7 +119,7 @@
 
 ::-webkit-scrollbar-thumb {
   /* background: linear-gradient(180deg, #3b82f6, #2563eb); */
-  background: linear-gradient(180deg, #5A7863,#3B4953);
+  background: linear-gradient(180deg, rgb(68, 68, 216),#2563eb);
   border-radius: 10px;
 }
 

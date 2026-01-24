@@ -7,7 +7,7 @@ Complete backend API for Disaster Relief Management System.
 ```bash
 cd backend
 npm install
-npm run dev  # Starts on http://localhost:5000
+npm start  # Starts on http://localhost:5000
 ```
 
 ## Configuration

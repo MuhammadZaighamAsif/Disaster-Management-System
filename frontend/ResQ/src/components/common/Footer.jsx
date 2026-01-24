@@ -1,11 +1,11 @@
 const Footer = () => {
   return (
-    <footer className="bg-[#0F2854] text-white py-8 mt-auto">
-      <div className="container mx-auto px-4">
+    <footer className="bg-[#0F2854] text-white py-4 mt-auto ">
+      <div className="container mx-auto px-4 mt-2">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-[#BDE8F5]">ResQ</h3>
+            <h3 className="text-xl font-bold mb-2 mt-2 text-[#BDE8F5]">ResQ</h3>
             <p className="text-[#BDE8F5]">
               A desktop-based Disaster Relief Management System designed to help
               disaster victims, NGOs, donors, and volunteers easily.
@@ -46,7 +46,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-[#4988C4] mt-8 pt-6 text-center text-[#BDE8F5]">
-          <p>&copy; 2025 ResQ. All rights reserved. | Spring 2025 SE Project</p>
+          <p>&copy; 2025 ResQ. All rights reserved. | Spring 2026 SE Project</p>
         </div>
       </div>
     </footer>
