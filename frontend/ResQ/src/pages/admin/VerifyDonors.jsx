@@ -16,7 +16,7 @@ const VerifyDonors = () => {
   const fetchPendingDonations = async () => {
     try {
       const user = JSON.parse(localStorage.getItem('user'));
-      const response = await fetch('http://localhost:5000/api/donations/pending-verification', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/donations/pending-verification`, {
         headers: {
           'Authorization': `Bearer ${user.token}`
         }
@@ -36,7 +36,7 @@ const VerifyDonors = () => {
   const handleApprove = async (donationId) => {
     try {
       const user = JSON.parse(localStorage.getItem('user'));
-      const response = await fetch(`http://localhost:5000/api/donations/${donationId}/verify`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/donations/${donationId}/verify`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ const VerifyDonors = () => {
 
     try {
       const user = JSON.parse(localStorage.getItem('user'));
-      const response = await fetch(`http://localhost:5000/api/donations/${donationId}/reject`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/donations/${donationId}/reject`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
