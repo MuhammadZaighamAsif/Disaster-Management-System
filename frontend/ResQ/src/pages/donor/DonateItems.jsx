@@ -42,7 +42,7 @@ const DonateItems = () => {
 
   const fetchDisasters = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/disasters?status=ACTIVE');
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/disasters?status=ACTIVE`);
       if (response.ok) {
         const result = await response.json();
         setDisasters(result.data || []);
@@ -102,7 +102,7 @@ const DonateItems = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/donations/items', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/donations/items`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

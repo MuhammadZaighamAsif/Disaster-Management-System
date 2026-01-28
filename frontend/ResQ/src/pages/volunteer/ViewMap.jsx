@@ -167,7 +167,7 @@ const ViewMap = () => {
 
   const fetchNearbyVictims = async (lat, lng) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/volunteers/victims/nearby?lat=${lat}&lng=${lng}`);
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/volunteers/victims/nearby?lat=${lat}&lng=${lng}`);
       if (response.ok) {
         const data = await response.json();
         setVictims(data);

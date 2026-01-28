@@ -38,7 +38,7 @@ const ChooseTask = () => {
   const fetchAvailableTasks = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/volunteers/tasks/available', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/volunteers/tasks/available`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -73,7 +73,7 @@ const ChooseTask = () => {
     try {
       const token = localStorage.getItem('token');
       
-      const response = await fetch(`http://localhost:5000/api/volunteers/tasks/${selectedTaskId}/assign`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/volunteers/tasks/${selectedTaskId}/assign`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

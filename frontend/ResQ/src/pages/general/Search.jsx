@@ -20,7 +20,7 @@ const Search = () => {
 
   const fetchAllDisasters = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/disasters?status=ACTIVE');
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/disasters?status=ACTIVE`);
       const result = await response.json();
       if (response.ok) {
         setAllDisasters(result.data || []);
@@ -41,7 +41,7 @@ const Search = () => {
 
     try {
       // Build query params based on search type
-      let url = 'http://localhost:5000/api/disasters/search?';
+      let url = `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/disasters/search?`;
 
       if (searchParams.type === 'basic') {
         url += `query=${encodeURIComponent(searchParams.query)}`;

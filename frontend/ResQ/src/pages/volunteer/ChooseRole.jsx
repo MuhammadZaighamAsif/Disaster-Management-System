@@ -40,7 +40,7 @@ const ChooseRole = () => {
       const token = localStorage.getItem('token');
       
       // Fetch profile
-      const profileResponse = await fetch('http://localhost:5000/api/auth/me', {
+      const profileResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/auth/me`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const profileResult = await profileResponse.json();
@@ -62,7 +62,7 @@ const ChooseRole = () => {
       }
 
       // Check for active tasks
-      const tasksResponse = await fetch('http://localhost:5000/api/volunteers/my-tasks?status=ASSIGNED', {
+      const tasksResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/volunteers/my-tasks?status=ASSIGNED`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const tasksResult = await tasksResponse.json();
@@ -94,7 +94,7 @@ const ChooseRole = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/volunteers/profile', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/volunteers/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
