@@ -39,7 +39,23 @@ app.use('/api/', limiter);
 
 // CORS Configuration
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      process.env.FRONTEND_URL || 'http://localhost:5173',
+      'http://localhost:5173',
+      'http://localhost:3000'
+    ];
+    
+    // Remove trailing slashes for comparison
+    const normalizedOrigin = origin ? origin.replace(/\/$/, '') : origin;
+    const isAllowed = !origin || allowedOrigins.some(o => o.replace(/\/$/, '') === normalizedOrigin);
+    
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   optionsSuccessStatus: 200,
 };
