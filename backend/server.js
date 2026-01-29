@@ -40,7 +40,7 @@ app.use('/api/', limiter);
 // CORS Configuration
 const corsOptions = {
   origin: [
-    'https://my-pr-tan.vercel.app',
+    'https://my-resq.vercel.app',
     'http://localhost:5173',
     'http://localhost:3000'
   ],
